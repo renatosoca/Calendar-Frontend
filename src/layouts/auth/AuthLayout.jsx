@@ -1,3 +1,7 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from "swiper";
+
+import "swiper/css/pagination";
 import './AuthLayout.css';
 
 export const AuthLayout = ({ children, title }) => {
@@ -13,7 +17,7 @@ export const AuthLayout = ({ children, title }) => {
       </div>
 
       <div className="AuthLayout__right">
-        <div className="swiper">
+        {/* <div className="swiper">
           <div className="swiper swiperLoop">
             <div className="swiper-wrapper">
               <div className="swiper-slide">
@@ -30,7 +34,24 @@ export const AuthLayout = ({ children, title }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        <Swiper
+          pagination={{
+            dynamicBullets: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper AuthLayout__swiper"
+        >
+          <SwiperSlide>Slide 1</SwiperSlide>
+          <SwiperSlide>Slide 2</SwiperSlide>
+          <SwiperSlide>Slide 3</SwiperSlide>
+          <SwiperSlide>Slide 4</SwiperSlide>
+          <SwiperSlide>Slide 5</SwiperSlide>
+          <SwiperSlide>Slide 6</SwiperSlide>
+          <SwiperSlide>Slide 7</SwiperSlide>
+          <SwiperSlide>Slide 8</SwiperSlide>
+          <SwiperSlide>Slide 9</SwiperSlide>
+        </Swiper>
       </div>
     </div>
   );
