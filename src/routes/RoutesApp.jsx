@@ -3,7 +3,7 @@ import { AuthRoutes, CalendarRoutes, PublicRoutes } from './';
 
 export const RoutesApp = () => {
 
-  const isLogged = 'not-authenticated'; // 'not-authenticated'
+  const isLogged = 'authenticated'; // 'not-authenticated'
 
   return (
     <Routes>
