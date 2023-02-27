@@ -1,0 +1,46 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+*{
+  border: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html{
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+body{
+  font-size: 1.5rem;
+}
+.btn{
+  display: block;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  padding: 1.4rem 1.2rem;
+  font-size: 1.7rem;
+  border-radius: .4rem;
+  transition: transform .4s ease;
+  cursor: pointer;
+}
+.btn:hover{
+  transform: scale(1.05);
+}
+.container{
+  max-width: 50rem;
+  margin: 0 auto;
+  width: 80%;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
