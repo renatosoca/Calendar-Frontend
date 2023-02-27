@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond&display=swap');
+:root{
+    --bg-right: #000;
+    --font-primary: 'Anton', sans-serif;
+    --font-secundary: 'EB Garamond', serif;
+}
+
+.RegisterPage {
+  background-color: #fff;
+  display: flex;
+  overflow: hidden;
+}
+.RegisterPage__container {
+  max-width: 40rem;
+  width: 95%;
+  margin: auto;
+}
+.RegisterPage__title{
+  font-family: var(--font-primary);
+  font-style: italic;
+  font-size: 6rem;
+}
+.RegisterPage__inputs{
+  margin: 2rem 0;
+  font-size: 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.RegisterPage__input{
+  width: 100%;
+  padding: 1.5rem 1rem;
+  font-size: 1.7rem;
+  color: #000;
+}
+.RegisterPage__input:focus-visible{
+  outline: none;
+}
+
+.RegisterPage__content {
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 3rem;
+}

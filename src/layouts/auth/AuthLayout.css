@@ -3,19 +3,3 @@
   grid-template-columns: repeat(2, 1fr);
   min-height: 100vh;
 }
-.AuthLayout__left {
-  background-color: #fff;
-  display: flex;
-}
-.AuthLayout__form {
-  max-width: 40rem;
-  width: 95%;
-  margin: auto;
-}
-
-.AuthLayout__right {
-  background-color: #000;
-}
-.AuthLayout__swiper {
-  color: #fff;
-}

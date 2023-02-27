@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond&display=swap');
+
+:root{
+    --bg-right: #000;
+    --font-primary: 'Anton', sans-serif;
+    --font-secundary: 'EB Garamond', serif;
+}
+.LoginPage {
+  background-color: #fff;
+  display: flex;
+  overflow: hidden;
+}
+.LoginPage__container {
+  max-width: 40rem;
+  width: 95%;
+  margin: auto;
+}
+.LoginPage__title{
+  font-family: var(--font-primary);
+  font-style: italic;
+  font-size: 6rem;
+}
+.LoginPage__inputs{
+  margin: 2rem 0;
+  font-size: 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.LoginPage__input{
+  width: 100%;
+  padding: 1.5rem 1rem;
+  font-size: 1.7rem;
+  color: #000;
+}
+.LoginPage__input:focus-visible{
+  outline: none;
+}
+
+/* Lado Derecho */
+.LoginPage__info {
+  background-color: var(--bg-right);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding-left: 3rem;
+}
