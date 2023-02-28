@@ -10,10 +10,10 @@ export const CalendarPage = () => {
   const [ lastView , setLastView ] = useState(localStorage.getItem('lastView') || 'month')
   
   const events = [{
-    title: 'My event',
+    title: 'Mi evento en el calendario',
     notes: 'Some notes',
     start: new Date(),
-    end: addHours( new Date(), 2 ),
+    end: addHours( new Date(), 8 ),
     user: {
       _id: '123',
       name: 'Jhon Doe'
