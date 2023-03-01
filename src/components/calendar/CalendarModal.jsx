@@ -5,6 +5,7 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import { addHours, differenceInSeconds } from "date-fns";
 import es from 'date-fns/locale/es';
 
+import { useUiStore } from "../../hooks";
 import "react-datepicker/dist/react-datepicker.css";
 import "./css/CalendarModal.css";
 
@@ -22,7 +23,7 @@ ReactModal.setAppElement("#root");
 
 export const CalendarModal = () => {
 
-  const [isOpen, setisOpen] = useState(true);
+  const { isOpenModal, closeModal, openModal } = useUiStore();
   const [ formValid, setFormValid ] = useState({
     date: false,
     title: false,
@@ -34,10 +35,6 @@ export const CalendarModal = () => {
     start: new Date(),
     end: addHours(new Date(), 2),
   })
-
-  const closeModal = () => {
-    setisOpen(false);
-  };
 
   const handleInputChange = ({ target }) => {
     setFormValues({
@@ -61,15 +58,15 @@ export const CalendarModal = () => {
     if ( difference < 0 || difference === 0 || isNaN(difference) ) return setFormValid({date: true});
     if ( formValues.title.length === 0 ) return setFormValid({title: true});
     if ( formValues.title.length === 0 ) return setFormValid({note: true});
-    
+
     setFormValid({})
   }
 
   return (
     <ReactModal
-      isOpen={isOpen}
+      isOpen={ isOpenModal }
       onRequestClose={closeModal}
-      style={customStyles}
+      style={ customStyles }
       overlayClassName="Modal__fondo"
       className='Modal__container'
       closeTimeoutMS={200}
@@ -118,6 +115,7 @@ export const CalendarModal = () => {
             onChange={ handleInputChange }
           />
           <label htmlFor="title" className="Modal__label">Titulo y notas</label>
+          <span className="Modal__message">{ formValid.title && 'Titlulo requerid' }</span>
         </div>
 
         <div className={`Modal__group ${ formValid.note && 'Modal__group-error' }`}>

@@ -1,24 +1,17 @@
+import { useState } from 'react';
 import { Calendar } from 'react-big-calendar';
-import { addHours } from 'date-fns';
 
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { useUiStore, useCalendarStore } from '../../hooks';
 import { localizer, getMessagesES } from '../../helpers';
 import { CalendarEventBox, CalendarModal } from '../../components';
-import { useState } from 'react';
+
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 export const CalendarPage = () => {
+  const { events } = useCalendarStore();
+  const { openModal } = useUiStore();
   const [ lastView , setLastView ] = useState(localStorage.getItem('lastView') || 'month')
   
-  const events = [{
-    title: 'Mi evento en el calendario',
-    notes: 'Some notes',
-    start: new Date(),
-    end: addHours( new Date(), 8 ),
-    user: {
-      _id: '123',
-      name: 'Jhon Doe'
-    }
-  }];
 
   const eventStyleGetter = ( event, start, end, isSelected ) => {
     const style = {
@@ -33,7 +26,7 @@ export const CalendarPage = () => {
   }
 
   const handleDobleClick = ( e ) => {
-    console.log( e, 'Doble' );
+    openModal();
   }
 
   const handleSelect = ( e ) => {
