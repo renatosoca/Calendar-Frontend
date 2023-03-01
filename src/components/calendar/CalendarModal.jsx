@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ReactModal from "react-modal";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { addHours, differenceInSeconds } from "date-fns";
 import es from 'date-fns/locale/es';
+import { CgCalendar } from "react-icons/cg";
 
-import { useUiStore } from "../../hooks";
+import { useCalendarStore, useUiStore } from "../../hooks";
 import "react-datepicker/dist/react-datepicker.css";
 import "./css/CalendarModal.css";
 
@@ -22,8 +23,9 @@ const customStyles = {
 ReactModal.setAppElement("#root");
 
 export const CalendarModal = () => {
+  const { activeEvent, startSavingEvent } = useCalendarStore();
 
-  const { isOpenModal, closeModal, openModal } = useUiStore();
+  const { isOpenModal, closeModal } = useUiStore();
   const [ formValid, setFormValid ] = useState({
     date: false,
     title: false,
@@ -34,7 +36,11 @@ export const CalendarModal = () => {
     notes: "Eventos",
     start: new Date(),
     end: addHours(new Date(), 2),
-  })
+  });
+
+  useEffect(() => {
+    if ( activeEvent !== null ) setFormValues( activeEvent );
+  }, [ activeEvent ]);
 
   const handleInputChange = ({ target }) => {
     setFormValues({
@@ -50,7 +56,7 @@ export const CalendarModal = () => {
     });
   }
 
-  const handleSubmit = ( e ) => {
+  const handleSubmit = async ( e ) => {
     e.preventDefault();
     
     const difference = differenceInSeconds( formValues.end, formValues.start );
@@ -59,7 +65,9 @@ export const CalendarModal = () => {
     if ( formValues.title.length === 0 ) return setFormValid({title: true});
     if ( formValues.title.length === 0 ) return setFormValid({note: true});
 
-    setFormValid({})
+    setFormValid({});
+    await startSavingEvent( formValues );
+    closeModal();
   }
 
   return (
@@ -136,7 +144,7 @@ export const CalendarModal = () => {
         </div>
 
         <button type="submit" className="btn ">
-          <i className="far fa-save"></i>
+          <CgCalendar />
           <span> Guardar</span>
         </button>
       </form>

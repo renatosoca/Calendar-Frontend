@@ -152,3 +152,49 @@
   padding: 0 1rem;
   cursor: text;
 }
+
+/* Boton Flotante de Agregar */
+.btn__add {
+  width: auto;
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  border-radius: 2rem;
+  background-color: var(--bg-black);
+  color: var(--color-white);
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+}
+.btn__delete {
+  width: auto;
+  position: fixed;
+  bottom: 3rem;
+  left: 3rem;
+  border-radius: 2rem;
+  background-color: var(--bg-black);
+  color: var(--color-white);
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease-in-out;
+}
+.btn__delete-active {
+  opacity: 1;
+  pointer-events: initial;
+}
+.btn__icon {
+  font-size: 3rem;
+}
