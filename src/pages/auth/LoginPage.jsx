@@ -1,13 +1,29 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useForm } from '../../hooks';
 import { AuthLayout } from '../../layouts';
 import './LoginPage.css';
 
+const initialForm = {
+  email: 'correo@correo.com',
+  password: '',
+}
+
 export const LoginPage = () => {
+  const formValidations = {
+    email: [ (value) => value.includes('@'), 'Tiene que ser un email válido.' ],
+    password: [ (value) => value.length > 5, 'La contraseña debe tener al menos 6 caracteres.' ]
+  };
+  const [ formSubmitted, setFormSubmitted ] = useState( false );
+
+  const { formState, email, password, onInputChange, isFormValid, emailValid, passwordValid } = useForm( initialForm, formValidations );
 
   const handleSubmit = ( e ) => {
     e.preventDefault();
-    console.log('click')
+    setFormSubmitted( true );
+
+    console.log(!passwordValid);
   }
 
   return (
@@ -19,12 +35,34 @@ export const LoginPage = () => {
             onSubmit={ handleSubmit }
             className="LoginPage__form"
           >
-            <div className="LoginPage__inputs">
-                <input type="text" id="user" className="LoginPage__input" placeholder="Ingrese su Usuario" />
+            <div className={`Modal__group ${ !!emailValid && formSubmitted ? 'Modal__group-error' : '' }`} >
+              <input
+                id="email"
+                type="email"
+                className="Modal__input"
+                placeholder=" "
+                name="email"
+                autoComplete="off"
+                value={ email }
+                onChange={ onInputChange }
+              />
+              <label htmlFor="email" className="Modal__label">Email</label>
+              <span className="Modal__message">{ formSubmitted && emailValid }</span>
             </div>
 
-            <div className="LoginPage__inputs">
-                <input type="password" id="password" className="LoginPage__input" placeholder="Ingrese su Password" />
+            <div className={`Modal__group ${ ( !!passwordValid && formSubmitted) ? 'Modal__group-error' : '' } `} >
+              <input
+                id="password"
+                type="Password"
+                className="Modal__input"
+                placeholder=" "
+                name="password"
+                autoComplete="off"
+                value={ password }
+                onChange={ onInputChange }
+              />
+              <label htmlFor="password" className="Modal__label">Password</label>
+              <span className="Modal__message">{ formSubmitted && passwordValid }</span>
             </div>
             
             <input type="submit" className="btn LoginPage_submit" id="enviar_LoginPage" value="Iniciar sesión" />

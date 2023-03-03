@@ -1,10 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
-import { AuthRoutes, CalendarRoutes, PublicRoutes } from './';
 
-export const RoutesApp = () => {
+import { AuthRoutes, CalendarRoutes, PublicRoutes } from '.';
 
-  const isLogged = 'authenticated'; // 'not-authenticated'
+export const AppRoutes = () => {
 
+  const isLogged = 'checking'; // 'not-authenticated' 'authenticated'
+  
   return (
     <Routes>
 

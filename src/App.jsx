@@ -1,9 +1,9 @@
-import { RoutesApp } from "./routes"
+import { AppRoutes } from "./routes"
 
 export const App = () => {
   return (
     <>
-      <RoutesApp />
+      <AppRoutes />
     </>
   )
 }
