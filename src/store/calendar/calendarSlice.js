@@ -1,29 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addHours } from 'date-fns';
-
-const tempEvent = {
-  _id: new Date().getTime(),
-  title: 'evento de prueba',
-  notes: 'Some notes',
-  start: new Date(),
-  end: addHours( new Date(), 8 ),
-  user: {
-    _id: '123',
-    name: 'Renato'
-  }
-}
 
 export const calendarSlice = createSlice({
   name: 'calendar',
   initialState: {
-    events: [
-      tempEvent
-    ],
+    isLoadingEvents: false,
+    events: [],
     activeEvent: null,
   },
   reducers: {
     setActiveEvent: (state, { payload }) => {
       state.activeEvent = payload;
+    },
+    setLoadingEvents: (state) => {
+      state.isLoadingEvents = true;
+    },
+    setLoadEvents: (state, { payload }) => {
+      state.isLoadingEvents = false;
+      state.events = payload;
     },
     addNewEvent: (state, { payload }) => {
       state.events.push( payload );
@@ -40,10 +33,14 @@ export const calendarSlice = createSlice({
       state.activeEvent = null;
     },
     setDeleteEvent: (state) => {
-      if (!state.activeEvent) {
-        return;
-      }
+      if (!state.activeEvent) return;
+
       state.events = state.events.filter( event => event._id !== state.activeEvent._id );
+      state.activeEvent = null;
+    },
+    setLogoutCalendar: (state) => {
+      state.isLoadingEvents = false;
+      state.events = [];
       state.activeEvent = null;
     },
   },
@@ -51,7 +48,10 @@ export const calendarSlice = createSlice({
 
 export const { 
   setActiveEvent,
+  setLoadingEvents,
+  setLoadEvents,
   addNewEvent,
   setUpdateEvent,
   setDeleteEvent,
+  setLogoutCalendar,
 } = calendarSlice.actions;

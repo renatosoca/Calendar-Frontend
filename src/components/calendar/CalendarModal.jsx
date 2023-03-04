@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import ReactModal from "react-modal";
 import DatePicker, { registerLocale } from "react-datepicker";
@@ -7,6 +8,7 @@ import es from 'date-fns/locale/es';
 import { CgCalendar } from "react-icons/cg";
 
 import { useCalendarStore, useUiStore } from "../../hooks";
+import { startSavingEvent } from "../../store";
 import "react-datepicker/dist/react-datepicker.css";
 import "./css/CalendarModal.css";
 
@@ -23,7 +25,9 @@ const customStyles = {
 ReactModal.setAppElement("#root");
 
 export const CalendarModal = () => {
-  const { activeEvent, startSavingEvent } = useCalendarStore();
+  const dispatch = useDispatch();
+
+  const { activeEvent } = useCalendarStore();
 
   const { isOpenModal, closeModal } = useUiStore();
   const [ formValid, setFormValid ] = useState({
@@ -56,7 +60,7 @@ export const CalendarModal = () => {
     });
   }
 
-  const handleSubmit = async ( e ) => {
+  const handleSubmit = ( e ) => {
     e.preventDefault();
     
     const difference = differenceInSeconds( formValues.end, formValues.start );
@@ -66,7 +70,7 @@ export const CalendarModal = () => {
     if ( formValues.title.length === 0 ) return setFormValid({note: true});
 
     setFormValid({});
-    await startSavingEvent( formValues );
+    dispatch( startSavingEvent( formValues ) );
     closeModal();
   }
 

@@ -1,13 +1,15 @@
 import { CgMenuBoxed } from 'react-icons/cg';
-import { useCalendarStore, useUiStore } from '../../hooks';
+import { useDispatch } from 'react-redux';
+
+import {  useUiStore } from '../../hooks';
+import { startDeletingEvent } from '../../store';
 
 export const DeleteEventButton = ({ active }) => {
-  const { startDeletingEvent } = useCalendarStore();
+  const dispatch = useDispatch();
   const { isOpenModal } = useUiStore();
 
   const handleAddEvent = () => {
-    console.log('eliminando');
-    startDeletingEvent();
+    dispatch( startDeletingEvent() );
   }
 
   return (

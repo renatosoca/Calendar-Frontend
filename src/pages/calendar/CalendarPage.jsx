@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Calendar } from 'react-big-calendar';
 
 import { useUiStore, useCalendarStore } from '../../hooks';
@@ -6,14 +7,22 @@ import { localizer, getMessagesES } from '../../helpers';
 import { AddEventButton, CalendarEventBox, CalendarModal, DeleteEventButton } from '../../components';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { CalendarLayout } from '../../layouts';
+import { startLoadingEvents } from '../../store';
 
 
 export const CalendarPage = () => {
+  const dispatch = useDispatch();
+
   const { events, activeEventModal } = useCalendarStore();
   const { openModal } = useUiStore();
 
   const [ lastView , setLastView ] = useState(localStorage.getItem('lastView') || 'month')
   const [ btnDelete, setBtnDelete ] = useState(false);
+
+  useEffect(() => {
+    dispatch( startLoadingEvents() );
+  }, [])
 
   const eventStyleGetter = ( event, start, end, isSelected ) => {
     const style = {
@@ -57,7 +66,7 @@ export const CalendarPage = () => {
   )
 
   return (
-    <>
+    <CalendarLayout>
       <Calendar
         views={['month', 'week', 'work_week', 'day', 'agenda']}
         defaultView={ lastView }
@@ -92,6 +101,6 @@ export const CalendarPage = () => {
       <AddEventButton />
 
       <DeleteEventButton active={ btnDelete } />
-    </>
+    </CalendarLayout>
   )
 }
