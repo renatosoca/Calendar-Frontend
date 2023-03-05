@@ -1,12 +1,8 @@
-import { useState } from 'react';
-import { VscLoading } from 'react-icons/vsc';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useForm } from '../../hooks';
 
+import { VscLoading } from 'react-icons/vsc';
+import { useForm, useRegister } from '../../hooks';
 import { AuthLayout } from '../../layouts';
-import { startRegister } from '../../store';
-import './css/RegisterPage.css';
 
 const initialForm = {
   name: '',
@@ -17,9 +13,6 @@ const initialForm = {
 
 export const RegisterPage = () => {
 
-  const dispatch = useDispatch();
-  const { errorMessage, status } = useSelector( state => state.auth );
-
   const formValidations = {
     name: [ (name) => name.length > 2, 'El nombre es obligatorio.' ],
     email: [ (email) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/).test(email), 'Tiene que ser un email válido.' ],
@@ -27,23 +20,18 @@ export const RegisterPage = () => {
     confirmPassword: [ (confirmPassword, password) => confirmPassword === password, 'Las contraseña no coinciden.' ]
   };
 
-  const [ formSubmit, setFormSubmit ] = useState(false);
-  const { formState, name, email, password, confirmPassword, onInputChange, isFormValid, nameValid, emailValid, passwordValid, confirmPasswordValid } = useForm( initialForm, formValidations );
+  const { 
+    formState, name, email, password, confirmPassword, onInputChange, isFormValid, nameValid, emailValid, passwordValid, confirmPasswordValid 
+  } = useForm( initialForm, formValidations );
 
-  const isLoading = status === 'checking';
-
-  const handleSubmit = ( e ) => {
-    e.preventDefault();
-    setFormSubmit(true);
-
-    if ( !isFormValid ) return;
-    dispatch( startRegister( formState ) );
-  }
+  const { 
+    errorMessage, isRegister, formSubmitted, isLoading, handleSubmit
+  } = useRegister( formState, isFormValid );
 
   return (
-    <AuthLayout title={ 'Iniciar Sesión' } >
-      <div className="RegisterPage__content">
-        <div className='' >
+    <AuthLayout >
+      <div className="auth__info">
+        <div className='auth__content' >
           <small className='' >#Calendario</small>
           <h4 className='' >Registrate para administrar tu día a día</h4>
           <h3 className='' >Administra toda tu agenda</h3>
@@ -51,38 +39,38 @@ export const RegisterPage = () => {
         </div>
       </div>
 
-      <div className="RegisterPage">
-        <div className="RegisterPage__container animate__animated animate__slideInRight">
-          <h1 className='RegisterPage__title' >Registro</h1>
+      <main className="auth">
+        <div className="auth__container animate__animated animate__slideInRight">
+          <h1 className='auth__title' >REGISTRARME</h1>
 
-          { !!errorMessage && <div className="Modal__message-error" >{ errorMessage }</div> }
+          { (!!errorMessage && isRegister) && <div className="auth__message-error" >{ errorMessage }</div> }
 
           <form 
             onSubmit={ handleSubmit }
-            className="RegisterPage__register"
+            className="form"
           >
-            <div>
-              <div className={`Modal__group ${ (!!nameValid && formSubmit) ? 'Modal__group-error' : '' }`} >
+            <div className='form__content'>
+              <div className={`form__group ${ (!!nameValid && formSubmitted) ? 'form__group-error' : '' }`} >
                 <input
                   id="name"
                   type="text"
-                  className="Modal__input"
+                  className="form__input"
                   placeholder=" "
                   name="name"
                   autoComplete="off"
                   value={ name }
                   onChange={ onInputChange }
                 />
-                <label htmlFor="name" className="Modal__label">Nombre</label>
+                <label htmlFor="name" className="form__label">Nombre</label>
               </div>
 
-              <span className="Modal__span">{ formSubmit && nameValid }</span>
+              <span className="form__span">{ formSubmitted && nameValid }</span>
             </div>
 
-            <div>
-              <div className={`Modal__group ${ (!!emailValid && formSubmit) ? 'Modal__group-error' : '' }`} >
+            <div className='form__content'>
+              <div className={`form__group ${ (!!emailValid && formSubmitted) ? 'form__group-error' : '' }`} >
                 <input
-                  className="Modal__input"
+                  className="form__input"
                   id="email"
                   type="email"
                   placeholder=" "
@@ -91,16 +79,16 @@ export const RegisterPage = () => {
                   value={ email }
                   onChange={ onInputChange }
                 />
-                <label htmlFor="email" className="Modal__label">Email</label>
+                <label htmlFor="email" className="form__label">Email</label>
               </div>
 
-              <span className="Modal__span">{ formSubmit && emailValid }</span>
+              <span className="form__span">{ formSubmitted && emailValid }</span>
             </div>
 
-            <div>
-              <div className={`Modal__group ${ (!!passwordValid && formSubmit) ? 'Modal__group-error' : '' }`} >
+            <div className='form__content'>
+              <div className={`form__group ${ (!!passwordValid && formSubmitted) ? 'form__group-error' : '' }`} >
                 <input
-                  className="Modal__input"
+                  className="form__input"
                   id="password"
                   type="password"
                   placeholder=" "
@@ -109,57 +97,57 @@ export const RegisterPage = () => {
                   value={ password }
                   onChange={ onInputChange }
                 />
-                <label htmlFor="password" className="Modal__label">Contraseña</label>
+                <label htmlFor="password" className="form__label">Contraseña</label>
               </div>
-              <span className="Modal__span">{ formSubmit && passwordValid }</span>
+              <span className="form__span">{ formSubmitted && passwordValid }</span>
             </div>
 
-            <div>
-              <div className={`Modal__group ${ (!!confirmPasswordValid && formSubmit) ? 'Modal__group-error' : '' }`} >
+            <div className='form__content'>
+              <div className={`form__group ${ (!!confirmPasswordValid && formSubmitted) ? 'form__group-error' : '' }`} >
                 <input
                   id="confirmPassword"
                   type="password"
-                  className="Modal__input"
+                  className="form__input"
                   placeholder=" "
                   name="confirmPassword"
                   autoComplete="off"
                   value={ confirmPassword }
                   onChange={ onInputChange }
                 />
-                <label htmlFor="confirmPassword" className="Modal__label">Confirmar Contraseña</label>
+                <label htmlFor="confirmPassword" className="form__label">Confirmar Contraseña</label>
               </div>
 
-              <span className="Modal__span">{ formSubmit && confirmPasswordValid }</span>
+              <span className="form__span">{ formSubmitted && confirmPasswordValid }</span>
             </div>
 
-            <button type="submit" className="btn btn__container LoginPage__submit" id="enviar_LoginPage" disabled={ isLoading } >
-              <span className="txt">
-                { isLoading ? 'Creando' : 'Crear Cuenta'}
+            <button type="submit" className="form__submit" disabled={ isLoading } >
+              <span className="form__submit-text">
+                { isLoading ? 'Creando cuenta' : 'Crear cuenta'}
               </span>
 
-              <span className={`spinner ${ isLoading ? 'spinner__active' : ''}`}>
-                <VscLoading className='spinner__loading' />
+              <span className={`form__spinner ${ isLoading ? 'form__spinner-active' : ''}`}>
+                <VscLoading className='form__loading' />
               </span>
             </button>
           </form>
           
-          <div className='RegisterPage__links'>
+          <div className='auth__links'>
             <Link 
               to='/auth/login'
-              className='RegisterPage__link'
+              className='auth__link'
             >
               Inicia Sesión
             </Link>
 
             <Link 
               to='/auth/login'
-              className='RegisterPage__link'
+              className='auth__link'
             >
               Olvidé mi contraseña
             </Link>
           </div>
         </div>
-      </div>
+      </main>
     </AuthLayout>
   )
 }

@@ -1,30 +1,30 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { startLogin } from '../store';
+import { startRegister } from '../store';
 
-export const useLogin = ( formState = {}, isFormValid ) => {
+export const useRegister = ( formState = {}, isFormValid ) => {
   
-  const dispatch = useDispatch();
+  const dispatch = useDispatch( isFormValid, formState = {} );
   const { errorMessage, status } = useSelector( state => state.auth );
 
-  const [ isLogin, setIsLogin ] = useState(false);
   const [ formSubmitted, setFormSubmitted ] = useState( false );
+  const [ isRegister, setIsRegister ] = useState(false);
 
   const isLoading = status === 'checking';
 
   const handleSubmit = ( e ) => {
     e.preventDefault();
-    setIsLogin( true );
-    setFormSubmitted( true );
+    setFormSubmitted(true);
+    setIsRegister(true);
 
     if ( !isFormValid ) return;
-    dispatch( startLogin( formState ) );
+    dispatch( startRegister( formState ) );
   }
 
   return {
     //states
     errorMessage,
-    isLogin,
+    isRegister,
     formSubmitted,
     isLoading,
 
