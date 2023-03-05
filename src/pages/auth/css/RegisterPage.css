@@ -9,6 +9,7 @@
   background-color: #fff;
   display: flex;
   overflow: hidden;
+  min-height: 50vh;
 }
 .RegisterPage__container {
   max-width: 40rem;
@@ -16,9 +17,12 @@
   margin: auto;
 }
 .RegisterPage__title{
+  text-align: center;
+  font-size: clamp(1rem, 2rem, 3rem);
   font-family: var(--font-primary);
   font-style: italic;
-  font-size: 6rem;
+  text-transform: uppercase;
+  margin-bottom: 5rem;
 }
 .RegisterPage__inputs{
   margin: 2rem 0;
@@ -37,6 +41,15 @@
 .RegisterPage__input:focus-visible{
   outline: none;
 }
+.RegisterPage__links {
+  width: 100%;
+  margin-top: 2rem;
+  line-height: 1.8;
+}
+.RegisterPage__link {
+  display: block;
+  text-align: center;
+}
 
 .RegisterPage__content {
   background-color: #000;
@@ -45,4 +58,12 @@
   align-items: center;
   justify-content: center;
   padding-right: 3rem;
+  min-height: 30vh;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 1025px){
+  .RegisterPage__content {
+    display: none;
+  }
 }

@@ -1,7 +1,15 @@
-import React from 'react'
+import { Link } from 'react-router-dom';
+import { PublicLayout } from '../../layouts';
 
 export const HomePage = () => {
   return (
-    <div>En Mantenimiento</div>
+    <PublicLayout>
+      <Link
+        to="/auth/login"
+        className='btn'
+      >
+        Login
+      </Link>
+    </PublicLayout>
   )
 }

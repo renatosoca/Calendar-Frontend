@@ -3,3 +3,9 @@
   grid-template-columns: repeat(2, 1fr);
   min-height: 100vh;
 }
+
+@media screen and (max-width: 1025px) {
+  .AuthLayout {
+    grid-template-columns: 1fr;
+  }
+}

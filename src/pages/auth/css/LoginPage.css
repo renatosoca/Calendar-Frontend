@@ -5,22 +5,24 @@
     --font-primary: 'Anton', sans-serif;
     --font-secundary: 'EB Garamond', serif;
 }
-.LoginPage {
+.Login {
   background-color: #fff;
   display: flex;
   overflow: hidden;
 }
-.LoginPage__container {
+.Login__container {
   max-width: 40rem;
   width: 95%;
   margin: auto;
 }
-.LoginPage__title{
+.Login__title{
+  text-align: center;
   font-family: var(--font-primary);
   font-style: italic;
-  font-size: 6rem;
+  font-size: clamp(3rem, 4rem, 6rem);
+  margin-bottom: 5rem;
 }
-.LoginPage__inputs{
+.Login__inputs{
   margin: 2rem 0;
   font-size: 2rem;
   width: 100%;
@@ -28,22 +30,32 @@
   align-items: center;
   gap: 1rem;
 }
-.LoginPage__input{
+.Login__input{
   width: 100%;
   padding: 1.5rem 1rem;
   font-size: 1.7rem;
   color: #000;
 }
-.LoginPage__input:focus-visible{
+.Login__input:focus-visible{
   outline: none;
+}
+.Login__submit {
+  margin-top: 2rem;
 }
 
 /* Lado Derecho */
-.LoginPage__info {
+.Login__info {
   background-color: var(--bg-right);
   color: #fff;
   display: flex;
   align-items: center;
   padding-left: 3rem;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 1025px) {
+  .Login__info {
+    display: none;
+  }
 }
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { VscLoading } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useForm } from '../../hooks';
@@ -8,16 +9,16 @@ import { startRegister } from '../../store';
 import './css/RegisterPage.css';
 
 const initialForm = {
-  name: 'renatin',
-  email: 'rena@soca.com',
-  password: 'Renato18!',
-  confirmPassword: 'Renato18!',
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
 }
 
 export const RegisterPage = () => {
 
   const dispatch = useDispatch();
-  const { errorMessage } = useSelector( state => state.auth );
+  const { errorMessage, status } = useSelector( state => state.auth );
 
   const formValidations = {
     name: [ (name) => name.length > 2, 'El nombre es obligatorio.' ],
@@ -28,6 +29,8 @@ export const RegisterPage = () => {
 
   const [ formSubmit, setFormSubmit ] = useState(false);
   const { formState, name, email, password, confirmPassword, onInputChange, isFormValid, nameValid, emailValid, passwordValid, confirmPasswordValid } = useForm( initialForm, formValidations );
+
+  const isLoading = status === 'checking';
 
   const handleSubmit = ( e ) => {
     e.preventDefault();
@@ -51,78 +54,110 @@ export const RegisterPage = () => {
       <div className="RegisterPage">
         <div className="RegisterPage__container animate__animated animate__slideInRight">
           <h1 className='RegisterPage__title' >Registro</h1>
+
+          { !!errorMessage && <div className="Modal__message-error" >{ errorMessage }</div> }
+
           <form 
             onSubmit={ handleSubmit }
             className="RegisterPage__register"
           >
-           <div className={`Modal__group ${ (!!nameValid && formSubmit) ? 'Modal__group-error' : '' }`} >
-              <input
-                id="name"
-                type="text"
-                className="Modal__input"
-                placeholder=" "
-                name="name"
-                autoComplete="off"
-                value={ name }
-                onChange={ onInputChange }
-              />
-              <label htmlFor="name" className="Modal__label">Nombre</label>
-              <span className="Modal__message">{ formSubmit && nameValid }</span>
+            <div>
+              <div className={`Modal__group ${ (!!nameValid && formSubmit) ? 'Modal__group-error' : '' }`} >
+                <input
+                  id="name"
+                  type="text"
+                  className="Modal__input"
+                  placeholder=" "
+                  name="name"
+                  autoComplete="off"
+                  value={ name }
+                  onChange={ onInputChange }
+                />
+                <label htmlFor="name" className="Modal__label">Nombre</label>
+              </div>
+
+              <span className="Modal__span">{ formSubmit && nameValid }</span>
             </div>
 
-            <div className={`Modal__group ${ (!!emailValid && formSubmit) ? 'Modal__group-error' : '' }`} >
-              <input
-                id="email"
-                type="email"
-                className="Modal__input"
-                placeholder=" "
-                name="email"
-                autoComplete="off"
-                value={ email }
-                onChange={ onInputChange }
-              />
-              <label htmlFor="email" className="Modal__label">Email</label>
-              <span className="Modal__message">{ formSubmit && emailValid }</span>
+            <div>
+              <div className={`Modal__group ${ (!!emailValid && formSubmit) ? 'Modal__group-error' : '' }`} >
+                <input
+                  className="Modal__input"
+                  id="email"
+                  type="email"
+                  placeholder=" "
+                  name="email"
+                  autoComplete="off"
+                  value={ email }
+                  onChange={ onInputChange }
+                />
+                <label htmlFor="email" className="Modal__label">Email</label>
+              </div>
+
+              <span className="Modal__span">{ formSubmit && emailValid }</span>
             </div>
 
-            <div className={`Modal__group ${ (!!passwordValid && formSubmit) ? 'Modal__group-error' : '' }`} >
-              <input
-                id="password"
-                type="password"
-                className="Modal__input"
-                placeholder=" "
-                name="password"
-                autoComplete="off"
-                value={ password }
-                onChange={ onInputChange }
-              />
-              <label htmlFor="password" className="Modal__label">Contraseña</label>
-              <span className="Modal__message">{ formSubmit && passwordValid }</span>
+            <div>
+              <div className={`Modal__group ${ (!!passwordValid && formSubmit) ? 'Modal__group-error' : '' }`} >
+                <input
+                  className="Modal__input"
+                  id="password"
+                  type="password"
+                  placeholder=" "
+                  name="password"
+                  autoComplete="off"
+                  value={ password }
+                  onChange={ onInputChange }
+                />
+                <label htmlFor="password" className="Modal__label">Contraseña</label>
+              </div>
+              <span className="Modal__span">{ formSubmit && passwordValid }</span>
             </div>
 
-            <div className={`Modal__group ${ (!!confirmPasswordValid && formSubmit) ? 'Modal__group-error' : '' }`} >
-              <input
-                id="confirmPassword"
-                type="password"
-                className="Modal__input"
-                placeholder=" "
-                name="confirmPassword"
-                autoComplete="off"
-                value={ confirmPassword }
-                onChange={ onInputChange }
-              />
-              <label htmlFor="confirmPassword" className="Modal__label">Confirmar Contraseña</label>
-              <span className="Modal__message">{ formSubmit && confirmPasswordValid }</span>
+            <div>
+              <div className={`Modal__group ${ (!!confirmPasswordValid && formSubmit) ? 'Modal__group-error' : '' }`} >
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  className="Modal__input"
+                  placeholder=" "
+                  name="confirmPassword"
+                  autoComplete="off"
+                  value={ confirmPassword }
+                  onChange={ onInputChange }
+                />
+                <label htmlFor="confirmPassword" className="Modal__label">Confirmar Contraseña</label>
+              </div>
+
+              <span className="Modal__span">{ formSubmit && confirmPasswordValid }</span>
             </div>
 
-            { !!errorMessage && <div className="Modal__group-error" >{ errorMessage }</div> }
+            <button type="submit" className="btn btn__container LoginPage__submit" id="enviar_LoginPage" disabled={ isLoading } >
+              <span className="txt">
+                { isLoading ? 'Creando' : 'Crear Cuenta'}
+              </span>
 
-            <input type="submit" className="btn login_submit" id="enviar_login" value="Iniciar sesión" />
+              <span className={`spinner ${ isLoading ? 'spinner__active' : ''}`}>
+                <VscLoading className='spinner__loading' />
+              </span>
+            </button>
           </form>
           
-          <span>
-            ¿Ya tienes una cuenta? <Link to='/auth/login' >Inicia Sesión</Link> 
-          </span>
+          <div className='RegisterPage__links'>
+            <Link 
+              to='/auth/login'
+              className='RegisterPage__link'
+            >
+              Inicia Sesión
+            </Link>
+
+            <Link 
+              to='/auth/login'
+              className='RegisterPage__link'
+            >
+              Olvidé mi contraseña
+            </Link>
+          </div>
         </div>
       </div>
     </AuthLayout>

@@ -10,7 +10,6 @@ import { CgCalendar } from "react-icons/cg";
 import { useCalendarStore, useUiStore } from "../../hooks";
 import { startSavingEvent } from "../../store";
 import "react-datepicker/dist/react-datepicker.css";
-import "./css/CalendarModal.css";
 
 registerLocale('es', es)
 const customStyles = {
