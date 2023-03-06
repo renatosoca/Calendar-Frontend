@@ -16,7 +16,19 @@ export const useCalendar = () => {
   const { formats } = useMemo( () => ({
     formats: {
       timeGutterFormat: (date, culture, localizer) =>
-        localizer.format(date, 'hh:mm a', culture),
+        localizer.format(date, 'hh:mm aaaa', culture), //Fechas Side
+      dateFormat: (date, culture, localizer) =>
+        localizer.format(date, 'dd', culture), //Fechas del mes: 01, 02, 03 ...
+      //dayFormat: (date, culture, localizer) =>
+      //  localizer.format(date, 'DDDD MM/dd', culture),  //Formato fechas de la semana
+      //dayHeaderFormat: (date, culture, localizer) =>
+      //  localizer.format(date, 'dddd MMMM Do', culture),  //Formato de fecha de la cabecera, DIA
+      eventTimeRangeFormat: ({ start, end }, culture, localizer) =>
+        localizer.format(start, 'hh:mm a', culture) +
+        ' - ' +
+        localizer.format(end, 'hh:mm a', culture),
+      monthHeaderFormat: (date, culture, localizer) =>
+        localizer.format(date, `MMMM - yyyy`, culture),
     },
   }), []);
 

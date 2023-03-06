@@ -483,3 +483,59 @@ a {
     display: none;
   }
 }
+
+/* STYLES CALENDAR */
+.CalendarLayout {
+}
+/* HEADER CALENDAR */
+.CalendarLayout__header {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0 .5rem;
+  margin-bottom: .5rem;
+}
+.CalendarLayout__left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.CalendarLayout__title {
+  font-size: clamp(3rem, 3rem, 4rem);
+}
+
+.CalendarLayout__rigth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding-right: 1rem;
+}
+.CalendarLayout__avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #BEBEBE;
+  cursor: pointer;
+  font-weight: bold;
+}
+.CalendarLayout__menu {
+  background-color: transparent;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+/* STYLES CALENDAR */
+.rbc-header {
+  border: none;
+  padding: .5rem 0;
+}
