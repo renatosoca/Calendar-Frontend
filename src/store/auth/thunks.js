@@ -1,6 +1,6 @@
 import { calendarApi } from "../../api";
-import { setLogoutCalendar } from "../calendar/calendarSlice";
-import { onChecking, onLogin, onLogout } from "./authSlice";
+import { onLogoutCalendar } from "../calendar/calendarSlice";
+import { onChecking, onClearMessageError, onLogin, onLogout } from "./authSlice";
 
 export const startLogin = ({ email, password }) => {
   return async (dispatch) => {
@@ -28,7 +28,7 @@ export const startRegister = ({ email, password, name }) => {
       const { data } = await calendarApi.post("/auth/register", { email, password, name });
       localStorage.setItem( "token", data.jwt );
       localStorage.setItem( "time-token-start", new Date().getTime() );
-      
+      console.log(data, 'register')
       //Falta implementar el mensage de revisar email.
       const { _id } = data;
       //dispatch( onLogin({ _id, name, email }) );
@@ -56,6 +56,12 @@ export const startChecking = () => {
       localStorage.removeItem( "token" );
       dispatch( onLogout() );  
     }
+  }
+}
+
+export const startClearMessageError = () => {
+  return (dispatch) => {
+    dispatch( onClearMessageError() );
   }
 }
 

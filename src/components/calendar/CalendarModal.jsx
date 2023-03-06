@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-
 import ReactModal from "react-modal";
 import DatePicker, { registerLocale } from "react-datepicker";
-import { addHours, differenceInSeconds } from "date-fns";
+import { addHours } from "date-fns";
 import es from 'date-fns/locale/es';
-import { CgCalendar } from "react-icons/cg";
 
-import { useCalendarStore, useUiStore } from "../../hooks";
-import { startSavingEvent } from "../../store";
 import "react-datepicker/dist/react-datepicker.css";
+import { useForm, useCalendarModal } from "../../hooks";
+import { CgCalendar } from "react-icons/cg";
+import { useEffect, useState } from "react";
 
 registerLocale('es', es)
 const customStyles = {
@@ -23,75 +20,54 @@ const customStyles = {
 };
 ReactModal.setAppElement("#root");
 
+const initialForm = {
+  title: "",
+  notes: "",
+  start: new Date(),
+  end: addHours(new Date(), 1),
+};
+
 export const CalendarModal = () => {
-  const dispatch = useDispatch();
 
-  const { activeEvent } = useCalendarStore();
+  //Personalizar Errores y estilos del modal
+  const formValidations = {
 
-  const { isOpenModal, closeModal } = useUiStore();
-  const [ formValid, setFormValid ] = useState({
-    date: false,
-    title: false,
-    note: false
-  });
-  const [ formValues, setFormValues ] = useState({
-    title: "Evento",
-    notes: "Eventos",
-    start: new Date(),
-    end: addHours(new Date(), 2),
-  });
+  }
+
+  const [ formValues, setFormValues ] = useState( initialForm );
+
+  const {
+    formState, title, notes, start, end, onInputChange, onInputChangeDate
+  } = useForm( formValues, formValidations );
+
+  const {
+    ModalCalendar, activeEvent, handleSubmit, handleCloseModal 
+  } = useCalendarModal( formState );
 
   useEffect(() => {
     if ( activeEvent !== null ) setFormValues( activeEvent );
   }, [ activeEvent ]);
 
-  const handleInputChange = ({ target }) => {
-    setFormValues({
-      ...formValues,
-      [target.name]: target.value
-    });
-  }
-
-  const handleDateChanged = ( e, changing ) => {
-    setFormValues({
-      ...formValues,
-      [changing]: e
-    });
-  }
-
-  const handleSubmit = ( e ) => {
-    e.preventDefault();
-    
-    const difference = differenceInSeconds( formValues.end, formValues.start );
-    
-    if ( difference < 0 || difference === 0 || isNaN(difference) ) return setFormValid({date: true});
-    if ( formValues.title.length === 0 ) return setFormValid({title: true});
-    if ( formValues.title.length === 0 ) return setFormValid({note: true});
-
-    setFormValid({});
-    dispatch( startSavingEvent( formValues ) );
-    closeModal();
-  }
-
   return (
     <ReactModal
-      isOpen={ isOpenModal }
-      onRequestClose={closeModal}
+      isOpen={ ModalCalendar }
+      onRequestClose={ handleCloseModal }
       style={ customStyles }
       overlayClassName="Modal__fondo"
       className='Modal__container'
-      closeTimeoutMS={200}
+      closeTimeoutMS={ 200 }
     >
       <h1 className="Modal__title"> Nuevo evento </h1>
+
       <form onSubmit={ handleSubmit } className="Modal__form">
         <div className="Modal__group">
           <label htmlFor="date-start" className="Modal__label-date">Fecha y hora inicio</label>
           <DatePicker
             id="date-start"
             locale="es"
-            maxDate={ formValues.end }
-            selected={ formValues.start }
-            onChange={ (e) => handleDateChanged( e, 'start' ) }
+            maxDate={ end }
+            selected={ start }
+            onChange={ (e) => onInputChangeDate( e, 'start' ) }
             showTimeSelect
             dateFormat="Pp"
             timeCaption="Hora"
@@ -99,14 +75,14 @@ export const CalendarModal = () => {
           />
         </div>
 
-        <div className={`Modal__group ${ formValid.date && 'Modal__group-error' }`} >
+        <div className={`Modal__group ${  'Modal__group-error' }`} >
           <label htmlFor="date-end" className="Modal__label-date">Fecha y hora fin</label>
           <DatePicker
             id="date-end"
             locale="es"
-            minDate={ formValues.start }
-            selected={ formValues.end }
-            onChange={ (e) => handleDateChanged( e, 'end' ) }
+            minDate={ start }
+            selected={ end }
+            onChange={ (e) => onInputChangeDate( e, 'end' ) }
             showTimeSelect
             dateFormat="Pp"
             timeCaption="Hora"
@@ -114,7 +90,7 @@ export const CalendarModal = () => {
           />
         </div>
 
-        <div className={`Modal__group ${ formValid.title && 'Modal__group-error' }`} >
+        <div className={`Modal__group ${ title && 'Modal__group-error' }`} >
           <input
             id="title"
             type="text"
@@ -122,14 +98,14 @@ export const CalendarModal = () => {
             placeholder=" "
             name="title"
             autoComplete="off"
-            value={formValues.title}
-            onChange={ handleInputChange }
+            value={ title }
+            onChange={ onInputChange }
           />
           <label htmlFor="title" className="Modal__label">Titulo y notas</label>
-          <span className="Modal__message">{ formValid.title && 'Titlulo requerid' }</span>
+          <span className="Modal__message">{ title && 'Titlulo requerid' }</span>
         </div>
 
-        <div className={`Modal__group ${ formValid.note && 'Modal__group-error' }`}>
+        <div className={`Modal__group ${ notes && 'Modal__group-error' }`}>
           <textarea
             id="notes"
             type="text"
@@ -137,10 +113,9 @@ export const CalendarModal = () => {
             placeholder=" "
             rows="2"
             name="notes"
-            value={ formValues.notes }
-            onChange={ handleInputChange }
-          >
-          </textarea>
+            value={ notes }
+            onChange={ onInputChange }
+          />
           <label htmlFor="notes" className="Modal__label">
             Información adicional
           </label>

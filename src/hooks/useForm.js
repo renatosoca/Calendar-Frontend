@@ -25,6 +25,14 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
     });
   };
 
+  const onInputChangeDate = ( e, changing ) => {
+    console.log({ e, changing });
+    setFormState({
+      ...formState,
+      [changing]: e,
+    });
+  }
+
   const onResetForm = () => {
     setFormState(initialForm);
   };
@@ -40,12 +48,16 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
   }
 
   return {
+    //States
     ...formState,
     formState,
-    onInputChange,
-    onResetForm,
     ...formValidation,
     formValidation,
-    isFormValid
+    isFormValid,
+
+    //Methods
+    onInputChange,
+    onInputChangeDate,
+    onResetForm,
   };
 };

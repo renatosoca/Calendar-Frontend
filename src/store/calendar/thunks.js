@@ -1,10 +1,10 @@
 import { calendarApi } from "../../api";
 import { convertEventsToDate } from "../../helpers";
-import { addNewEvent, setActiveEvent, setDeleteEvent, setLoadEvents, setLoadingEvents, setUpdateEvent } from "./calendarSlice";
+import { onAddNewEvent, onActiveEvent, onDeleteEvent, onLoadEvents, onLoadingEvents, onUpdateEvent } from "./calendarSlice";
 
-export const startEventModal = ( calendarEvent ) => {
+export const startEventActiveModal = ( calendarEvent ) => {
   return async ( dispatch ) => {
-    dispatch( setActiveEvent( calendarEvent ) );
+    dispatch( onActiveEvent( calendarEvent ) );
   }
 }
 
@@ -15,13 +15,13 @@ export const startSavingEvent = ( calendarEvent ) => {
       if (calendarEvent._id) {
 
         await calendarApi.put( `/event/${ calendarEvent._id }`, calendarEvent );
-        dispatch( setUpdateEvent( calendarEvent ) );
+        dispatch( onUpdateEvent( calendarEvent ) );
 
         return;
       } 
 
       const { data } = await calendarApi.post( '/event', calendarEvent );
-      dispatch( addNewEvent({ ...calendarEvent, _id: data.event._id, user }) )
+      dispatch( onAddNewEvent({ ...calendarEvent, _id: data.event._id, user }) )
 
     } catch (error) {
       console.log(error)
@@ -32,14 +32,14 @@ export const startSavingEvent = ( calendarEvent ) => {
 export const startLoadingEvents = () => {
   return async ( dispatch ) => {
     try {
-      dispatch( setLoadingEvents() );
+      dispatch( onLoadingEvents() );
       const { data } = await calendarApi.get( '/event' );
       const events = convertEventsToDate( data.events );
       
-      dispatch( setLoadEvents( events ) );
+      dispatch( onLoadEvents( events ) );
 
     } catch (error) {
-      console.log(error)
+      console.log('Unauthorized')
     }
   }
 }
@@ -50,7 +50,7 @@ export const startDeletingEvent = () => {
     try {
 
       await calendarApi.delete( `/event/${ activeEvent._id }` );
-      dispatch( setDeleteEvent() );
+      dispatch( onDeleteEvent() );
 
     } catch (error) {
       console.log(error)

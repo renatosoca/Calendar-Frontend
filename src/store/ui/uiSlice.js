@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 export const uiSlice = createSlice({
   name: 'ui',
   initialState: {
-    isOpenModal: false,
+    ModalCalendar: false,
   },
   reducers: {
     onOpenModal: (state) => {
-      state.isOpenModal = true;
+      state.ModalCalendar = true;
     },
     onCloseModal: (state) => {
-      state.isOpenModal = false;
+      state.ModalCalendar = false;
     }
   },
 });

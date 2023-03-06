@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 
-import { VscLoading } from 'react-icons/vsc';
-import { useForm, useRegister } from '../../hooks';
+import { MessageErrorApi } from '../../components';
 import { AuthLayout } from '../../layouts';
+import { useForm, useRegister } from '../../hooks';
+import { VscLoading } from 'react-icons/vsc';
 
 const initialForm = {
   name: '',
@@ -42,8 +43,6 @@ export const RegisterPage = () => {
       <main className="auth">
         <div className="auth__container animate__animated animate__slideInRight">
           <h1 className='auth__title' >REGISTRARME</h1>
-
-          { (!!errorMessage && isRegister) && <div className="auth__message-error" >{ errorMessage }</div> }
 
           <form 
             onSubmit={ handleSubmit }
@@ -119,6 +118,8 @@ export const RegisterPage = () => {
 
               <span className="form__span">{ formSubmitted && confirmPasswordValid }</span>
             </div>
+
+            { (!!errorMessage  && isRegister) && <MessageErrorApi messageError={ errorMessage } /> }
 
             <button type="submit" className="form__submit" disabled={ isLoading } >
               <span className="form__submit-text">

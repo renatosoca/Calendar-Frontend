@@ -8,21 +8,21 @@ export const calendarSlice = createSlice({
     activeEvent: null,
   },
   reducers: {
-    setActiveEvent: (state, { payload }) => {
+    onActiveEvent: (state, { payload }) => {
       state.activeEvent = payload;
     },
-    setLoadingEvents: (state) => {
+    onLoadingEvents: (state) => {
       state.isLoadingEvents = true;
     },
-    setLoadEvents: (state, { payload }) => {
+    onLoadEvents: (state, { payload }) => {
       state.isLoadingEvents = false;
       state.events = payload;
     },
-    addNewEvent: (state, { payload }) => {
+    onAddNewEvent: (state, { payload }) => {
       state.events.push( payload );
       state.activeEvent = null;
     },
-    setUpdateEvent: (state, { payload }) => {
+    onUpdateEvent: (state, { payload }) => {
       state.events = state.events.map( event => {
         if (event._id === payload._id) {
           return payload;
@@ -32,13 +32,13 @@ export const calendarSlice = createSlice({
       });
       state.activeEvent = null;
     },
-    setDeleteEvent: (state) => {
+    onDeleteEvent: (state) => {
       if (!state.activeEvent) return;
 
       state.events = state.events.filter( event => event._id !== state.activeEvent._id );
       state.activeEvent = null;
     },
-    setLogoutCalendar: (state) => {
+    onLogoutCalendar: (state) => {
       state.isLoadingEvents = false;
       state.events = [];
       state.activeEvent = null;
@@ -47,11 +47,11 @@ export const calendarSlice = createSlice({
 });
 
 export const { 
-  setActiveEvent,
-  setLoadingEvents,
-  setLoadEvents,
-  addNewEvent,
-  setUpdateEvent,
-  setDeleteEvent,
-  setLogoutCalendar,
+  onActiveEvent,
+  onLoadingEvents,
+  onLoadEvents,
+  onAddNewEvent,
+  onUpdateEvent,
+  onDeleteEvent,
+  onLogoutCalendar,
 } = calendarSlice.actions;

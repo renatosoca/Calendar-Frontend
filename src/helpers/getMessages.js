@@ -1,11 +1,12 @@
 export const getMessagesES = () => {
   return {
     allDay: 'Todo el día',
-    previous: 'Anterior',
-    next: 'siguiente',
+    previous: '<',
+    next: '>',
     today: 'Hoy',
     month: 'Mes',
     week: 'Semana',
+    work_week: '4 días',
     day: 'Día',
     agenda: 'Agenda',
     date: 'Fecha',

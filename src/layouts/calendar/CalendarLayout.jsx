@@ -10,7 +10,7 @@ export const CalendarLayout = ({ children }) => {
 
       { status === 'authenticated' && children }
       
-      { status === 'not-authenticated' && <Navigate to='/' /> }
+      { status === 'not-authenticated' && <Navigate to='/auth/login' /> }
       
     </div>
   )

@@ -4,7 +4,7 @@ import { startRegister } from '../store';
 
 export const useRegister = ( formState = {}, isFormValid ) => {
   
-  const dispatch = useDispatch( isFormValid, formState = {} );
+  const dispatch = useDispatch();
   const { errorMessage, status } = useSelector( state => state.auth );
 
   const [ formSubmitted, setFormSubmitted ] = useState( false );

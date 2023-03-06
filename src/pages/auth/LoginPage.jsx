@@ -3,6 +3,7 @@ import { VscLoading } from 'react-icons/vsc';
 
 import { useForm, useLogin } from '../../hooks';
 import { AuthLayout } from '../../layouts';
+import { MessageErrorApi } from '../../components';
 
 const initialForm = {
   email: '',
@@ -13,7 +14,7 @@ export const LoginPage = () => {
 
   const formValidations = {
     email: [ (email) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/).test(email), 'Tiene que ser un email válido.' ],
-    password: [ (password) => (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/).test(password), 'La contraseña debe contener al menos una mayuscula, una minuscula, un número, un carácter especial y un minimo de 8 caracteres.' ],
+    password: [ (password) => password.length > 7, 'La contraseña debe contener un mínimo de 8 caracteres.' ],
   };
 
   const { 
@@ -29,8 +30,6 @@ export const LoginPage = () => {
       <main className="auth">
         <div className="auth__container animate__animated animate__slideInLeft">
           <h1 className='auth__title' >BIENVENIDO</h1>
-
-          { (errorMessage  && isLogin) && <div className="auth__message-error" >{ errorMessage }</div> }
 
           <form
             onSubmit={ handleSubmit }
@@ -69,6 +68,8 @@ export const LoginPage = () => {
               </div>
               <span className="form__span">{ formSubmitted && passwordValid }</span>
             </div>
+
+            { (errorMessage  && isLogin) && <MessageErrorApi messageError={ errorMessage } /> }
             
             <button type="submit" className="form__submit" disabled={ isLoading } >
               <span className="form__submit-text">

@@ -1,24 +1,24 @@
 import { addHours } from 'date-fns';
 import { CgMenuBoxed } from 'react-icons/cg';
-import { useCalendarStore, useUiStore } from '../../hooks';
+import { useDispatch } from 'react-redux';
+import { startEventActiveModal, startOpenModal } from '../../store';
 
 export const AddEventButton = () => {
-  const { activeEventModal } = useCalendarStore();
-  const { openModal } = useUiStore();
+  const dispatch = useDispatch();
 
   const handleAddEvent = () => {
-    activeEventModal({
+    dispatch( startEventActiveModal({
       title: '',
       notes: '',
       start: new Date(),
-      end: addHours( new Date(), 8 ),
+      end: addHours( new Date(), 1 ),
       user: {
-        _id: '2',
-        name: 'Renato'
+        _id: '',
+        name: ''
       }
-    });
+    }));
 
-    openModal();
+    dispatch( startOpenModal() );
   }
 
   return (

@@ -269,6 +269,7 @@ a {
 
 /* START FORMS STYLES */
 .form {
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -346,6 +347,49 @@ a {
   font-size: 1.2rem;
   color: var(--color-red);
 }
+/* MESSAGE ERROR API */
+.form__message {
+  max-width: 25rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  background-color: #2E2F36;
+  color: var(--color-white);
+  padding: 1.5rem;
+  margin: 0 auto;
+  border-radius: .5rem;
+  border-left: .5rem solid #FF896F;
+  line-height: 2.5rem;
+  z-index: 100;
+}
+.form__message-content {
+  position: relative;
+  padding: 1.5rem 2.5rem 1.5rem 3rem;
+}
+.form__message-text {
+  font-size: 1.2rem;
+  color: #BEBEBE;
+}
+.form__message-btn {
+  background-color: transparent;
+  position: absolute;
+  top: 2.8rem;
+  right: 1.5rem;
+  cursor: pointer;
+}
+.form__icon {
+  font-size: 2.2rem;
+  color: #BEBEBE;
+}
+.form__icon-error {
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  color: #FF896F;
+}
 /* BOTTONS */
 .form__submit {
   width: 100%;
@@ -408,16 +452,6 @@ a {
   font-style: italic;
   font-size: clamp(3rem, 4rem, 6rem);
   padding: 1.5rem;
-}
-.auth__message-error {
-  display: block;
-  width: 100%;
-  color: var(--color-white);
-  text-align: center;
-  font-weight: bold;
-  background-color: var(--color-red);
-  padding: .8rem 1rem;
-  border-radius: .5rem;
 }
 .auth__links {
   width: 100%;
