@@ -1,6 +1,5 @@
+import { useState } from 'react';
 import { CgMenuGridR } from 'react-icons/cg';
-
-import Select from 'react-select';
 
 export const CalendarTollbar = ( props ) => {
   const { localizer: { messages },
@@ -11,10 +10,15 @@ export const CalendarTollbar = ( props ) => {
   onView, 
   } = props;
 
-  let Values = [];
-  for (const option of views) {
-    Values = [...Values, { label: option, value: option }]
-  }
+  const [selectedOption, setSelectedOption] = useState(views);
+  const [showOptions, setShowOptions] = useState(false);
+
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
+    onView(option.value);
+    setShowOptions(false);
+  };
+  const newViews = views.map( option => ({ label: option, value: option }))
 
   return (
     <>
@@ -31,21 +35,23 @@ export const CalendarTollbar = ( props ) => {
               {messages.today}
             </button>
 
-            <button 
-              className='calendar__button calendar__button-arrows'
-              type="button" 
-              onClick={() => onNavigate('PREV')}
-              >
-              {messages.previous}
-            </button>
+            <div className='calendar__container-button'>
+              <button 
+                className='calendar__button calendar__button-arrows'
+                type="button" 
+                onClick={() => onNavigate('PREV')}
+                >
+                {messages.previous}
+              </button>
 
-            <button 
-              className='calendar__button calendar__button-arrows'
-              type="button" 
-              onClick={() => onNavigate('NEXT')}
-              >
-              {messages.next}
-            </button>
+              <button 
+                className='calendar__button calendar__button-arrows'
+                type="button" 
+                onClick={() => onNavigate('NEXT')}
+                >
+                {messages.next}
+              </button>
+            </div>
           </div>
           
           <div className='calendar__center'>
@@ -54,23 +60,28 @@ export const CalendarTollbar = ( props ) => {
         </div>
 
         <div className='calendar__rigth'>
-          {(views.length > 1) && (
-            <select
-              value={view}
-              onChange={(e) => onView(e.target.value)}
-              className="calendar__select"
+          <div className='calendar__content'>
+            <div 
+              className="calendar__select" 
+              onClick={() => setShowOptions(!showOptions)}
             >
-              {views.map((name) => (
-                <option
-                  key={name}
-                  value={name}
-                  className={`calendar__option ${view === name ? 'calendar__option-active' : ''}`}
-                >
-                  {messages[name]}
-                </option>
-              ))}
-            </select>
-          )}
+              {messages[view]}
+            </div>
+            {showOptions && (
+              <div className="calendar__option">
+                {newViews.map((option) => (
+                  <div
+                    key={option.value}
+                    className={`calendar__values ${selectedOption.value === option.value ? 'calendar__values-active' : ''}`}
+                    onClick={() => handleOptionChange(option)}
+                  >
+                    <span>{messages[option.label]}</span>
+                    <span>{(messages[option.label]).substring(0,1)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           <div className='calendar__menu'>
             <button className='calendar__options'>

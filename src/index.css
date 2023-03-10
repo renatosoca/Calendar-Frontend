@@ -492,7 +492,7 @@ a {
   position: relative;
   display: flex;
   justify-content: space-between;
-  padding: 1rem 1rem;
+  padding: 1.5rem 1rem;
   background-color: var(--bg-blue-shadow);
   color: var(--bg-white);
 }
@@ -530,10 +530,15 @@ a {
 .calendar__button-today {
   border-radius: .5rem;
 }
+.calendar__container-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .2rem;
+}
 .calendar__button-arrows {
-  font-size: 1.8rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  font-size: 1.5rem;
+  padding: 1rem;
   border-radius: 50%;
   border: none;
 }
@@ -553,8 +558,10 @@ a {
   justify-content: center;
   gap: 1rem;
 }
+.calendar__content{
+  position: relative;
+}
 .calendar__select {
-  all: unset;
   background-color: transparent;
   color: var(--color-white);
   font-size: 1.5rem;
@@ -564,20 +571,39 @@ a {
   border-color: #14385C;
   border-width: .2rem;
   border-style: solid;
+  cursor: pointer;
   transition: border-color .15s ease-in-out;
 }
-
-.rbc-calendar__select:focus {
-  outline: none; /* eliminar el contorno de enfoque */
-  border-radius: 0; /* eliminar el borde redondeado en enfoque */
-  box-shadow: none; /* eliminar la sombra en enfoque */
+.calendar__select:hover {
+  background-color: #0E2237;
 }
-
 .calendar__option {
-  all: unset;
-  border-radius: none;
-  background-color: #14385C;
-  padding: 1rem;
+  min-width: 15rem;
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background-color: #0A1929;
+  color: #5090D3;
+  border-radius: .7rem;
+  border-color: #14385C;
+  border-width: .2rem;
+  border-style: solid;
+  padding: 1.5rem 0;
+  z-index: 100;
+}
+.calendar__values {
+  width: 100%;
+  padding: .3rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  color: #B2BAC2;
+  cursor: pointer;
+  font-weight: 700;
+}
+.calendar__values-active {
+  background-color: #0E2237;
+  color: #14385C;
+  border-radius: .5rem;
 }
 
 .calendar__menu {
@@ -593,10 +619,6 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.css-1nmdiq5-menu {
-  z-index: 1000 !important;
 }
 
 
