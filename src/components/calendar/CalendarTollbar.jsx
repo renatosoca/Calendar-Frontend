@@ -1,3 +1,7 @@
+import { CgMenuGridR } from 'react-icons/cg';
+
+import Select from 'react-select';
+
 export const CalendarTollbar = ( props ) => {
   const { localizer: { messages },
   label,
@@ -7,44 +11,78 @@ export const CalendarTollbar = ( props ) => {
   onView, 
   } = props;
 
-  const navigateTo = (action) => {
-    onNavigate(action);
-  };
-  const changeView = (newView) => {
-    onView(newView);
-  };
-  const viewNamesGroup = () => {
-    if (views.length > 1) {
-      return views.map((name) => (
-        <button
-          type="button"
-          key={name}
-          className={`rbc-btn rbc-btn-sm ${ view === name ? 'rbc-active' : '' }`}
-          onClick={() => changeView(name)}
-        >
-          {messages[name]}
-        </button>
-      ));
-    }
-  };
+  let Values = [];
+  for (const option of views) {
+    Values = [...Values, { label: option, value: option }]
+  }
 
   return (
-    <div className="rbc-toolbar">
-      <span className="rbc-btn-group">
-        <button type="button" onClick={() => navigateTo('TODAY')}>
-          {messages.today}
-        </button>
-        <button type="button" onClick={() => navigateTo('PREV')}>
-          {messages.previous}
-        </button>
-        <button type="button" onClick={() => navigateTo('NEXT')}>
-          {messages.next}
-        </button>
-      </span>
+    <>
+      <header className='calendar'>
+        <div className='calendar__left'>
+          <h1 className='calendar__title'>Calendario</h1>
 
-      <span className="rbc-toolbar-label">{label}</span>
+          <div className='calendar__nav'>
+            <button
+              className='calendar__button calendar__button-today'
+              type="button" 
+              onClick={() => onNavigate('TODAY')}
+            >
+              {messages.today}
+            </button>
 
-      <span className="rbc-btn-group">{viewNamesGroup()}</span>
-    </div>
+            <button 
+              className='calendar__button calendar__button-arrows'
+              type="button" 
+              onClick={() => onNavigate('PREV')}
+              >
+              {messages.previous}
+            </button>
+
+            <button 
+              className='calendar__button calendar__button-arrows'
+              type="button" 
+              onClick={() => onNavigate('NEXT')}
+              >
+              {messages.next}
+            </button>
+          </div>
+          
+          <div className='calendar__center'>
+            {label}
+          </div>
+        </div>
+
+        <div className='calendar__rigth'>
+          {(views.length > 1) && (
+            <select
+              value={view}
+              onChange={(e) => onView(e.target.value)}
+              className="calendar__select"
+            >
+              {views.map((name) => (
+                <option
+                  key={name}
+                  value={name}
+                  className={`calendar__option ${view === name ? 'calendar__option-active' : ''}`}
+                >
+                  {messages[name]}
+                </option>
+              ))}
+            </select>
+          )}
+
+          <div className='calendar__menu'>
+            <button className='calendar__options'>
+              <CgMenuGridR />
+            </button>
+
+            <div className='calendar__avatar'>
+              Prueba
+            </div>
+          </div>
+        </div>
+      </header>
+    </>
   );
 };

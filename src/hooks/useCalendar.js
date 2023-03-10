@@ -28,7 +28,7 @@ export const useCalendar = () => {
         ' - ' +
         localizer.format(end, 'hh:mm a', culture),
       monthHeaderFormat: (date, culture, localizer) =>
-        localizer.format(date, `MMMM - yyyy`, culture),
+        localizer.format(date, `MMMM yyyy`, culture),
     },
   }), []);
 

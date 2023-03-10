@@ -8,7 +8,7 @@ import { useForm, useCalendarModal } from "../../hooks";
 import { CgCalendar } from "react-icons/cg";
 import { useEffect, useState } from "react";
 
-registerLocale('es', es)
+registerLocale('es', es);
 const customStyles = {
   content: {
     top: "50%",

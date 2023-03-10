@@ -70,6 +70,6 @@ export const startLogout = () => {
     localStorage.removeItem( "token" );
     localStorage.removeItem( "time-token-start" );
     dispatch( onLogout() );
-    dispatch( setLogoutCalendar() );
+    dispatch( onLogoutCalendar() );
   }
 }

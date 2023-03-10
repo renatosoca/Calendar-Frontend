@@ -23,7 +23,7 @@ export const AddEventButton = () => {
 
   return (
     <button
-    onClick={ handleAddEvent }
+      onClick={ handleAddEvent }
       className="btn__add"
     >
       <CgMenuBoxed className='btn__icon' />
