@@ -39,7 +39,7 @@ export const startLoadingEvents = () => {
       dispatch( onLoadEvents( events ) );
 
     } catch (error) {
-      console.log('Unauthorized')
+      console.log(error.response)
     }
   }
 }

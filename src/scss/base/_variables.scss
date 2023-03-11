@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond&display=swap');
+
+/* FONTS */
+$font-primary: 'Anton', sans-serif;
+$font-secundary: 'EB Garamond', serif;
+$font-three: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+$font-normal: 500;
+$font-bold: 700;
+$font-extrabolt: 900;
+
+/* COLORS */
+$color-white: #fff;
+$color-black: #0d0d0d;
+
+$color-gray: #B2BAC2;
+$color-gray-50: #F3F6F9;
+$color-gray-100: #CDD2D7;
+$color-gray-200: #B7C4CF;
+$color-gray-300: #6F7E8C;
+$color-gray-700: #1D1D1D;
+
+$color-sky-100: #E0EFFF;
+$color-sky-500: #5090D3;
+
+$color-green-300: #5F8D4E;
+$color-green-400: #7FB77E;
+$color-green-500: #AACB73;
+
+$color-semiblack: rgba(0, 0, 0, 0.3);
+$color-red: #f00;
+
+$color-red-300: #e96d51;
+$color-blue: #007FFF;
+$color-indigo: #565ef3;
+$color-ligth-blue: #0E2237;
+$color-dark-blue: #0A1929;
+$color-skyBlue: #5090D3;
+$color-sky: #14385C;
+
+/* BACKGROUNDS */
+$bg-white: #fff;
+$bg-gray: #B2BAC2;
+$bg-black: #000;
+$bg-semiblack: rgba(0, 0, 0, 0.3);
+$bg-dark-blue: #0A1929;
+$bg-dark-semiBlue: #0E2237;
+$bg-skyBlue: #5090D3;
+$bg-red: #f00;
+
+$bg-gray-100: #F3F6F9;
+
+/* SPACING */
+$line-height-1: 1;
+$line-height-2: 2;

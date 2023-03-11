@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { startRegister } from '../store';
+import { startForgotPassword } from '../store';
 
-export const useRegister = ( formState = {}, isFormValid, onResetForm ) => {
+export const useForgotPass = ( formState = {}, isFormValid, onResetForm ) => {
   
   const dispatch = useDispatch();
   const { errorMessage, successMessage, status } = useSelector( state => state.auth );
 
   const [ formSubmitted, setFormSubmitted ] = useState( false );
-  const [ isRegister, setIsRegister ] = useState(false);
+  const [ isForgot, setIsForgot ] = useState(false);
 
   const isLoading = status === 'checking';
 
   const handleSubmit = ( e ) => {
     e.preventDefault();
     setFormSubmitted(true);
-    setIsRegister(true);
+    setIsForgot(true);
 
     if ( !isFormValid ) return;
-    dispatch( startRegister( formState ) );
+    dispatch( startForgotPassword( formState ) );
     setFormSubmitted(false);
     onResetForm();
   }
@@ -27,7 +27,7 @@ export const useRegister = ( formState = {}, isFormValid, onResetForm ) => {
     //states
     errorMessage,
     successMessage,
-    isRegister,
+    isForgot,
     formSubmitted,
     isLoading,
 

@@ -1,0 +1,218 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+/* START FORMS STYLES */
+.form {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  color: v.$color-gray-300;
+
+  /* CONTEINS: FIELDS AND ERROR MESSAGE */
+  &__content {
+    width: 100%;
+    padding: .1rem 0;
+  }
+  /* FIELD, LABEL AND SPAN */
+  &__group {
+    width: 100%;
+    position: relative;
+    border: .1rem solid v.$color-gray-200;
+    border-radius: .3rem;
+
+    &:focus-within {
+      color: v.$color-black;
+      border-color: v.$color-black;
+
+      .form__label {
+        background-color: v.$bg-white;
+        color: v.$color-black;
+        font-size: 1.1rem;
+        top: 0rem;
+        left: .5rem;
+        padding: 0 .5rem;
+      }
+    }
+    &:hover {
+      color: v.$color-black;
+      border-color: v.$color-black;
+      .form__input {
+        color: v.$color-black;
+      }
+    }
+  }
+  &__group-error {
+    border-color: v.$color-red;
+    color: v.$color-red;
+
+    &:focus-within {
+      color: v.$color-red;
+      border-color: v.$color-red;
+
+      .form__label {
+        color: v.$color-red;
+      }
+    }
+    &:hover {
+      color: v.$color-red;
+      border-color: v.$color-red;
+    }
+    .form__input:not(:placeholder-shown) ~ .form__label {
+      color: v.$color-red;
+    }
+    .form__label {
+      border-color: v.$color-red;
+      color: v.$color-red;
+    }
+  }
+  &__input{
+    width: 100%;
+    padding: 1.2rem 1rem;
+    border-radius: .3rem;
+    border: .1 solid transparent;
+    outline: none;
+    border-radius: none;
+    background: v.$bg-white;
+    font-size: 1.5rem;
+    resize: none;
+
+    &:hover {
+      color: v.$color-black;
+    }
+    &:not(:placeholder-shown) ~ .form__label {
+      background-color: v.$bg-white;
+      color: v.$color-black;
+      font-size: 1.1rem;
+      top: 0rem;
+      left: .5rem;
+      padding: 0 .5rem;
+    }
+  }
+  &__label{
+    width: max-content;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    padding: 0 1rem;
+    background-color: transparent;
+    font-weight: bold;
+    cursor: text;
+    transition-property: top font-size color;
+    transition-duration: .2s;
+    transition-timing-function: ease;
+  }
+  &__span {
+    font-size: 1.2rem;
+    color: v.$color-red;
+  }
+  /* END FIELD, LABEL AND SPAN */
+
+  /* MESSAGE ERROR API */
+  &__message {
+    max-width: 30rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #2E2F36;
+    color: v.$color-white;
+    padding: 1.5rem 2rem;
+    margin: 0 auto;
+    border-radius: .5rem;
+    border-left: .7rem solid v.$color-red-300;
+    border-right: .7rem solid transparent;
+    line-height: 2.3rem;
+    z-index: 10;
+
+    &-success {
+      border-left-color:v.$color-green-300;
+    }
+    &-content {
+      position: relative;
+      padding: 1.5rem 2.5rem;
+    }
+    &-text {
+      font-size: 1.25rem;
+      font-weight: v.$font-normal;
+      color: v.$color-gray-100;
+    }
+    &-btn {
+      background-color: transparent;
+      position: absolute;
+      top: 2.8rem;
+      right: 1.5rem;
+      cursor: pointer;
+    }
+  }
+  &__icon {
+    font-size: 2.2rem;
+    color: #BEBEBE;
+
+    &-error {
+      position: absolute;
+      left: 1.5rem;
+      top: 2.8rem;
+      color: v.$color-red-300;
+    }
+    &-success {
+      position: absolute;
+      left: 1.5rem;
+      top: 2.8rem;
+      color: v.$color-green-300;
+    }
+  }
+  /* END MESSAGE ERROR API */
+
+  /* START BTN SUBMIT AND SPINNER */
+  &__submit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: #000;
+    color: #fff;
+    padding: 1.4rem 1.2rem;
+    font-size: 1.7rem;
+    border-radius: .4rem;
+    transition: transform .4s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+  /*ICON LOADING */
+  &__spinner {
+    overflow: hidden;
+    display: none;
+    &-active {
+      display: block;
+      font-weight: bold;
+    }
+  }
+  &__loading {
+    font-size: 2rem;
+    color: #fff;
+    animation-name: loading;
+    animation-duration: .8s;
+    animation-iteration-count: infinite;
+  }
+  @keyframes loading {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  /* END BTN SUBMIT AND SPINNER*/
+}
+

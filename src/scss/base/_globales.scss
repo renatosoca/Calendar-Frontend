@@ -1,0 +1,59 @@
+@use './variables' as v;
+
+* {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+*::after, *::before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: v.$font-three;
+  scroll-behavior: smooth;
+}
+body {
+  font-size: 1.5rem;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: none;
+}
+
+/* GENERAL STYLES */
+.container {
+  max-width: 50rem;
+  margin: 0 auto;
+  width: 80%;
+}
+
+/* BOTTONS */
+.btn {
+  display: block;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  padding: 1.4rem 1.2rem;
+  font-size: 1.7rem;
+  border-radius: .4rem;
+  transition: transform .4s ease;
+  cursor: pointer;
+}
+.btn__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.btn:hover{
+  transform: scale(1.02);
+}
+
+/* HIDDEN FIELDS, WARNING IS IMPORTANT */
+.hidden {
+  display: none;
+}

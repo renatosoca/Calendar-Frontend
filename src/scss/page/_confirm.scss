@@ -1,0 +1,72 @@
+@use  '../base/variables' as v;
+@use  '../base/mixins' as m;
+
+.confirm {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 1rem 1.5rem;
+
+  &__container {
+    max-width: 45rem;
+    width: 100%;
+    border: .2rem solid v.$color-gray-300;
+    border-radius: 1rem;
+  }
+  &__header {
+    padding: 2rem 0;
+    border-bottom: .1rem solid v.$color-gray-300;
+  }
+  &__title {
+    padding: 0 1.5rem;
+    font-weight: v.$font-bold;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin: 0;
+  }
+  &__body {
+    padding: 1.5rem 0;
+    &-error {
+      color: v.$color-red;
+      padding: 0 1.5rem;
+      font-weight: v.$font-normal;
+      font-size: 1.5rem;
+
+    }
+  }
+  &__content {
+    padding: 0 1.5rem;
+    font-size: 1.6rem;
+    color: v.$color-sky-500;
+    font-weight: v.$font-normal;
+    &-error {
+      color: v.$color-red;
+      font-weight: v.$font-bold;
+      padding: .5rem 1.5rem 0;
+    }
+  }
+  &__footer {
+    padding: 1.5rem 0;
+    border-top: .1rem solid v.$color-gray-300;
+    text-align: center;
+  }
+  &__icon {
+    font-size: 2.2rem;
+  }
+  &__btn {
+    width: max-content;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    font-weight: v.$font-bold;
+    font-size: 1.7rem;
+    &-error {
+      color: v.$color-black;
+      text-align: start;
+      padding: 0 1.5rem;
+      font-weight: v.$font-normal;
+    }
+  }
+}

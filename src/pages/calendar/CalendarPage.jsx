@@ -1,6 +1,5 @@
 import { Calendar } from 'react-big-calendar';
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
@@ -16,14 +15,20 @@ export const CalendarPage = () => {
     events, lastView, formats, eventStyleGetter, handleDobleClick, handleSelect, handleSelectSlot, handleViewChange
   } = useCalendar();
 
+  //Resize
   const onEventResize = (data) => {
     const { start, end } = data;
-    console.log(start, end, data);
+    console.log(start, end, data, 'resize');
   };
 
+  //Drop
   const onEventDrop = (data) => {
-    console.log(data);
+    console.log(data, 'drop');
   };
+
+  const handleShowMore = (events, date) => {
+    console.log({ events, date });
+  }
 
   return (
     <CalendarLayout>
@@ -37,7 +42,7 @@ export const CalendarPage = () => {
         culture='es-ES'
         localizer={ localizer }
         formats={ formats }
-        style={{ height: 'calc( 100vh - 6rem)' }}
+        style={{ height: 'calc( 100vh)', border: 'none' }}
         messages={ getMessagesES() }
         components={{
           event: CalendarEventBox,
@@ -45,12 +50,12 @@ export const CalendarPage = () => {
         }}
         dayLayoutAlgorithm='no-overlap'
         //Actions
-        eventPropGetter={ eventStyleGetter } 
+        eventPropGetter={ eventStyleGetter }
         onDoubleClickEvent={ handleDobleClick }
         onSelectEvent={ handleSelect }
         onView={ handleViewChange }
         onSelectSlot={ handleSelectSlot }
-        onShowMore={ handleSelectSlot }
+        onShowMore={ handleShowMore }
         selectable
         /* DROP */
         onEventDrop={onEventDrop}

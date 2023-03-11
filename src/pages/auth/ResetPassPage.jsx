@@ -1,33 +1,30 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { VscLoading } from 'react-icons/vsc';
 
 import { AuthLayout } from '../../layouts';
-import { useForm, useRegister } from '../../hooks';
+import { useForm, useResetPass } from '../../hooks';
 import { ErrorMessageAPI, SuccessMessageAPI } from '../../components';
 
 const initialForm = {
-  name: '',
-  email: '',
   password: '',
   confirmPassword: '',
 }
 
-export const RegisterPage = () => {
+export const ResetPassPage = () => {
+  const { token } = useParams();
 
   const formValidations = {
-    name: [ (name) => name.length > 2, 'El nombre es obligatorio.' ],
-    email: [ (email) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/).test(email), 'Tiene que ser un email válido.' ],
     password: [ (password) => (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/).test(password), 'Se requiere al menos una mayúscula, una minúscula, un número, un carácter especial y un mínimo de 8 caracteres.' ],
     confirmPassword: [ (confirmPassword, password) => confirmPassword === password, 'Las contraseña no coinciden.' ]
   };
 
   const { 
-    formState, name, email, password, confirmPassword, onInputChange, isFormValid, nameValid, emailValid, passwordValid, confirmPasswordValid, onResetForm
+    formState, password, confirmPassword, onInputChange, isFormValid, passwordValid, confirmPasswordValid, onResetForm
   } = useForm( initialForm, formValidations );
 
   const { 
-    errorMessage, successMessage, isRegister, formSubmitted, isLoading, handleSubmit
-  } = useRegister( formState, isFormValid, onResetForm );
+    errorMessage, successMessage, isResetPass, formSubmitted, isLoading, handleSubmit
+  } = useResetPass( { password: formState.password, token }, isFormValid, onResetForm );
   
   return (
     <AuthLayout >
@@ -42,49 +39,13 @@ export const RegisterPage = () => {
 
       <main className="auth__container">
         <div className="auth__content animate__animated animate__slideInRight">
-          <h1 className='auth__title' >REGISTRARME</h1>
+          <h1 className='auth__title' >NUEVA CONTRASEÑA</h1>
 
           <form 
             onSubmit={ handleSubmit }
             className="form"
           >
-            { (!!successMessage && isRegister) && <SuccessMessageAPI messageSuccess={ successMessage } /> }
-
-            <div className='form__content'>
-              <div className={`form__group ${ (!!nameValid && formSubmitted) ? 'form__group-error' : '' }`} >
-                <input
-                  id="name"
-                  type="text"
-                  className="form__input"
-                  placeholder=" "
-                  name="name"
-                  autoComplete="off"
-                  value={ name }
-                  onChange={ onInputChange }
-                />
-                <label htmlFor="name" className="form__label">Nombre</label>
-              </div>
-
-              <span className="form__span">{ formSubmitted && nameValid }</span>
-            </div>
-
-            <div className='form__content'>
-              <div className={`form__group ${ (!!emailValid && formSubmitted) ? 'form__group-error' : '' }`} >
-                <input
-                  className="form__input"
-                  id="email"
-                  type="email"
-                  placeholder=" "
-                  name="email"
-                  autoComplete="off"
-                  value={ email }
-                  onChange={ onInputChange }
-                />
-                <label htmlFor="email" className="form__label">Email</label>
-              </div>
-
-              <span className="form__span">{ formSubmitted && emailValid }</span>
-            </div>
+            { (!!successMessage && isResetPass) && <SuccessMessageAPI messageSuccess={ successMessage } /> }
 
             <div className='form__content'>
               <div className={`form__group ${ (!!passwordValid && formSubmitted) ? 'form__group-error' : '' }`} >
@@ -121,7 +82,7 @@ export const RegisterPage = () => {
               <span className="form__span">{ formSubmitted && confirmPasswordValid }</span>
             </div>
 
-            { (!!errorMessage  && isRegister) && <ErrorMessageAPI messageError={ errorMessage } /> }
+            { (!!errorMessage  && isResetPass) && <ErrorMessageAPI messageError={ errorMessage } /> }
 
             <button type="submit" className="form__submit" disabled={ isLoading } >
               <span className="form__submit-text">

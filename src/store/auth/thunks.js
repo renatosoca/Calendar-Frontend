@@ -1,6 +1,6 @@
 import { calendarApi } from "../../api";
 import { onLogoutCalendar } from "../calendar/calendarSlice";
-import { onChecking, onClearMessageError, onLogin, onLogout } from "./authSlice";
+import { onChecking, onClearMessage, onLogin, onLogout, onResetPassword, onShowErrorMessage, onShowSuccessMessage } from "./authSlice";
 
 export const startLogin = ({ email, password }) => {
   return async (dispatch) => {
@@ -26,12 +26,7 @@ export const startRegister = ({ email, password, name }) => {
       dispatch( onChecking() );
 
       const { data } = await calendarApi.post("/auth/register", { email, password, name });
-      localStorage.setItem( "token", data.jwt );
-      localStorage.setItem( "time-token-start", new Date().getTime() );
-      console.log(data, 'register')
-      //Falta implementar el mensage de revisar email.
-      const { _id } = data;
-      //dispatch( onLogin({ _id, name, email }) );
+      dispatch( onShowSuccessMessage( data.msg ) );
 
     } catch (error) {
       dispatch( onLogout({ errorMessage: error.response.data.msg }) );
@@ -41,7 +36,7 @@ export const startRegister = ({ email, password, name }) => {
 
 export const startChecking = () => {
   return async (dispatch) => {
-    const token = localStorage.getItem('token') || null;
+    const token = localStorage.getItem('token') || '';
     if ( !token ) dispatch( onLogout() );
 
     try {
@@ -59,9 +54,52 @@ export const startChecking = () => {
   }
 }
 
-export const startClearMessageError = () => {
+export const startConfirmAccount = ({ token }) => {
+  return async (dispatch) => {
+    try {
+      dispatch( onChecking() );
+      
+      const { data } = await calendarApi.get(`/auth/confirm/${ token }`);
+      dispatch( onShowSuccessMessage( data.msg ) );
+
+    } catch (error) {
+      dispatch( onShowErrorMessage( error.response.data.msg ) );
+    }
+  }
+}
+
+export const startForgotPassword = ({ email }) => {
+  return async (dispatch) => {
+    try {
+      dispatch( onChecking() );
+      
+      const { data } = await calendarApi.post("/auth/forgot-password", { email });
+      dispatch( onShowSuccessMessage( data.msg ) );
+
+    } catch (error) {
+      dispatch( onShowErrorMessage( error.response.data.msg ) );
+    }
+  }
+}
+
+export const startResetPassword = ({ token, password }) => {
+  return async (dispatch) => {
+    try {
+      dispatch( onChecking() );
+      
+      const { data } = await calendarApi.post(`/auth/reset/${ token }`, { password });
+      dispatch( onResetPassword({ email: data.email, name: data.name }) );
+      localStorage.setItem( "token", data.jwt );
+
+    } catch (error) {
+      dispatch( onLogout({ errorMessage: error.response.data.msg }) );
+    }
+  }
+}
+
+export const startClearMessages = () => {
   return (dispatch) => {
-    dispatch( onClearMessageError() );
+    dispatch( onClearMessage() );
   }
 }
 

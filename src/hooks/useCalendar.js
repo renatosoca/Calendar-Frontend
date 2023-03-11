@@ -16,48 +16,47 @@ export const useCalendar = () => {
   const { formats } = useMemo( () => ({
     formats: {
       timeGutterFormat: (date, culture, localizer) =>
-        localizer.format(date, 'hh:mm aaaa', culture), //Fechas Side
+        localizer.format(date, 'hh:mm aaaa', culture), //Day
       dateFormat: (date, culture, localizer) =>
-        localizer.format(date, 'dd', culture), //Fechas del mes: 01, 02, 03 ...
+        localizer.format(date, 'dd', culture), //Calendar Body: 01, 02, 03 ...
       //dayFormat: (date, culture, localizer) =>
-      //  localizer.format(date, 'DDDD MM/dd', culture),  //Formato fechas de la semana
-      //dayHeaderFormat: (date, culture, localizer) =>
-      //  localizer.format(date, 'dddd MMMM Do', culture),  //Formato de fecha de la cabecera, DIA
+      //  localizer.format(date, 'DDDD MM/dd', culture),  //Week: 01 lun, 02 mar, 03 mier ...
       eventTimeRangeFormat: ({ start, end }, culture, localizer) =>
-        localizer.format(start, 'hh:mm a', culture) +
-        ' - ' +
-        localizer.format(end, 'hh:mm a', culture),
+        localizer.format(start, 'hh:mm aaa', culture) + ' - ' + localizer.format(end, 'hh:mm aaa', culture), //Event: 10:00 - 11:00
       monthHeaderFormat: (date, culture, localizer) =>
-        localizer.format(date, `MMMM yyyy`, culture),
+        localizer.format(date, `MMMM yyyy`, culture), //Marzo 2023
     },
   }), []);
 
   const eventStyleGetter = ( event, start, end, isSelected ) => {
     const style = {
-      backgroundColor: '#367CF7',
+      backgroundColor: '#0E2237',
       borderRadius: '2px',
-      opacity: 0.7,
-      color: 'white',
+      color: '#5090D3',
       outline: 'none',
     }
 
     if ( isSelected ) return { style }
   }
 
-  const handleDobleClick = ( e ) => {
-    dispatch( startOpenModal() );
-  }
-
   const handleSelect = ( e ) => {
     dispatch( startEventActiveModal( e ) );
+    console.log(e, 'Select');
+  }
+
+  const handleDobleClick = ( e ) => {
+    dispatch( startOpenModal() );
   }
 
   const handleViewChange = ( e ) => {
     localStorage.setItem( 'lastView', e );
   }
 
-  const handleSelectSlot = (e) => {
-    console.log(e, 'Prueba');
+  //Falta Guardas el evento en la base de datos
+  const handleSelectSlot = ({ start, end}) => {
+    console.log({start, end}, 'Select Slot');
+    dispatch( startEventActiveModal({ start, end, title: '', notes: '', user: ''}) );
+    dispatch( startOpenModal() );
   }
 
   return {

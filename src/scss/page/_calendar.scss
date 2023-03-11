@@ -1,0 +1,336 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+/* STYLES CALENDAR */
+.calendar {
+
+  .tollbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: v.$bg-white;
+    color: v.$color-white;
+    padding: 1rem;
+
+    /* STYLES HEADER LEFT */
+    &__left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      @include m.tablet {
+        gap: .7rem;
+      }
+      @include m.phone {
+        gap: .5rem;
+      }
+    }
+    &__title {
+      color: v.$color-gray-700;
+      pointer-events: none;
+      user-select: none;
+      margin: 0;
+      transition: transform .15s ease-in-out;
+      @include m.phone {
+        position: absolute;
+        transform: translateX(-200%);
+      }
+    }
+    &__nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      cursor: pointer;
+      @include m.phone {
+        gap: .5rem;
+      }
+    }
+    /* BUTTON TODAY */
+    &__button {
+      all: unset;
+      background-color: transparent;
+      color: v.$color-blue;
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+      border-color: v.$color-gray-50;
+      border-width: .15rem;
+      border-style: solid;
+      border-radius: 1rem;
+      transition: background-color .15s ease-in-out;
+
+      &:hover {
+        background-color: v.$bg-gray-100;
+      }
+    }
+    /* BUTTON BEFORE AND AFTER */
+    &__arrows{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
+    &__arrow {
+      font-size: 1.5rem;
+      border-radius: 50%;
+      padding: .8rem;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: v.$color-blue;
+      background-color: inherit;
+      transition-property: background-color;
+      transition-duration: .15s;
+      transition-timing-function: ease-in-out;
+
+      &:hover {
+        background-color: v.$bg-gray-100;
+      }
+    }
+    /* DATE TEXT */
+    &__center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: v.$font-bold;
+      text-transform: capitalize;
+      color: v.$color-dark-blue;
+    }
+    /* STYLES CONTAINER RIGTH */
+    &__rigth {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      @include m.phone {
+        gap: .5rem;
+      }
+    }
+    &__content{
+      position: relative;
+    }
+    /* NAV: MONTH, WEEK, DAY, AGENDA, FOUR_WEEK */
+    &__select {
+      background-color: transparent;
+      color: v.$color-blue;
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      border-color: v.$color-gray-50;
+      border-width: .1rem;
+      border-style: solid;
+      cursor: pointer;
+      transition: border-color .15s ease-in-out;
+
+      &:hover {
+        background-color: v.$bg-gray-100;
+      }
+    }
+    &__option {
+      min-width: 20rem;
+      position: absolute;
+      top: 120%;
+      right: 0;
+      background-color: v.$bg-white;
+      color: v.$color-blue;
+      border-radius: .7rem;
+      border-color: v.$color-gray-50;
+      border-width: .15rem;
+      border-style: solid;
+      padding: 1.5rem 0;
+      z-index: 100;
+    }
+    &__values {
+      width: 100%;
+      padding: .3rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      color: v.$color-gray-300;
+      cursor: pointer;
+      font-weight: 700;
+      transition-property: background-color color;
+      transition-duration: .15s;
+      transition-timing-function: ease-in-out;
+
+      &-active {
+        background-color: v.$bg-gray-100;
+        color: v.$color-blue;
+      }
+      &:hover {
+        background-color: v.$color-sky-100;
+        color: v.$color-gray-700;
+      }
+    }
+    /* OPTIONS ICONS  */
+    &__menus {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      @include m.phone {
+        gap: .5rem;
+      }
+
+      &-relative {
+        position: relative;
+      }
+    }
+    &__menu {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.3rem;
+      border-radius: 1rem;
+      border-color: v.$color-gray-50;
+      border-width: .15rem;
+      border-style: solid;
+      transition: border-color .15s ease-in-out;
+      
+      &:hover {
+        background-color: v.$bg-gray-100;
+      }
+
+      &-icon {
+        background-color: inherit;
+        padding: .7rem;
+        color: v.$color-blue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+    /* CONTAINER OPTIONS NAV USER: LOGOUT, PROFILE, ETC.. */
+    &__profile {
+      position: absolute;
+      top: 120%;
+      right: 0;
+      background-color: v.$bg-white;
+      color: v.$color-gray-300;
+      border-radius: 1rem;
+      min-width: 15rem;
+      z-index: 100;
+      padding: 1rem 0 .5rem;
+      font-size: 1.8rem;
+      border-color: v.$color-gray-50;
+      border-width: .15rem;
+      border-style: solid;
+
+      &--sign {
+        padding: 0 1.5rem;
+        color: v.$color-gray-700;
+        border-bottom: .1rem;
+        border-bottom-style: solid;
+        border-bottom-color: v.$color-gray-50;
+        padding-bottom: 1rem;
+      }
+      &-top {
+        font-size: 1.2rem;
+        font-weight: v.$font-normal;
+      }
+      &-user {
+        font-size: 1.2rem;
+      }
+      &--options {
+        padding: .5rem 0;
+        font-size: 1.6rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .2rem;
+      }
+      &--option {
+        width: 100%;
+        text-align: start;
+        background-color: inherit;
+        font-size: 1.5rem;
+        padding: .5rem 1rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: v.$bg-gray-100;
+        }
+      }
+      &-content {
+        padding: .5rem 0;
+        border-top: .1rem solid v.$color-gray-50;
+      }
+      &--logout {
+        width: 100%;
+        background-color: inherit;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: .5rem;
+        color: v.$color-red;
+        font-size: 1.5rem;
+        font-weight: v.$font-bold;
+        padding: .5rem 1rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: v.$bg-red;
+          color: v.$color-white;
+        }
+      }
+    }
+  }
+}
+
+/* Falta */
+/* STYLES CALENDAR */
+.rbc-header {
+  border: none;
+  padding: .5rem 0;
+}
+
+/* Boton Flotante de Agregar */
+.btn__add {
+  width: auto;
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  border-radius: 2rem;
+  background-color: var(--bg-black);
+  color: var(--color-white);
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+}
+.btn__delete {
+  width: auto;
+  position: fixed;
+  bottom: 3rem;
+  left: 3rem;
+  border-radius: 2rem;
+  background-color: var(--bg-black);
+  color: var(--color-white);
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease-in-out;
+}
+.btn__delete-active {
+  opacity: 1;
+  pointer-events: initial;
+}
+.btn__icon {
+  font-size: 3rem;
+}

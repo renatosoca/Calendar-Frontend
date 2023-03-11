@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
-import { HomePage } from '../../pages';
+import { HomePage } from '../pages';
 
 export const PublicRoutes = () => {
   return (

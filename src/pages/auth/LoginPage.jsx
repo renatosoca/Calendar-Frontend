@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+import { BiTask } from 'react-icons/bi';
 import { VscLoading } from 'react-icons/vsc';
 
-import { useForm, useLogin } from '../../hooks';
 import { AuthLayout } from '../../layouts';
-import { MessageErrorApi } from '../../components';
+import { useForm, useLogin } from '../../hooks';
+import { ErrorMessageAPI } from '../../components';
 
 const initialForm = {
   email: '',
@@ -18,17 +19,17 @@ export const LoginPage = () => {
   };
 
   const { 
-    formState, email, password, onInputChange, isFormValid, emailValid, passwordValid 
+    formState, email, password, onInputChange, isFormValid, emailValid, passwordValid , onResetForm
   } = useForm( initialForm, formValidations );
 
   const { 
     errorMessage, isLogin, formSubmitted, isLoading, handleSubmit 
-  } = useLogin( formState, isFormValid );
+  } = useLogin( formState, isFormValid, onResetForm );
   
   return (
    <AuthLayout >
-      <main className="auth">
-        <div className="auth__container animate__animated animate__slideInLeft">
+      <main className="auth__container">
+        <div className="auth__content animate__animated animate__slideInLeft">
           <h1 className='auth__title' >BIENVENIDO</h1>
 
           <form
@@ -69,7 +70,7 @@ export const LoginPage = () => {
               <span className="form__span">{ formSubmitted && passwordValid }</span>
             </div>
 
-            { (errorMessage  && isLogin) && <MessageErrorApi messageError={ errorMessage } /> }
+            { (errorMessage  && isLogin) && <ErrorMessageAPI messageError={ errorMessage } /> }
             
             <button type="submit" className="form__submit" disabled={ isLoading } >
               <span className="form__submit-text">
@@ -83,19 +84,23 @@ export const LoginPage = () => {
           </form>
 
           <div className='auth__links'>
-            <Link to='/auth/register' className='auth__link' >Olvidé mi contraseña</Link>
+            <div className='auth__links-container'>
+              <Link to='/auth/forgot-password' className='auth__link' >Olvidé mi contraseña</Link>
+            </div>
             
-            <Link to='/auth/register' className='auth__link' >Registrarme</Link> 
+            <div className='auth__links-container'>
+              <Link to='/auth/register' className='auth__link' >Registrarme</Link> 
+            </div>
           </div>
         </div>
       </main>
 
       <div className="auth__info">
-        <div className="auth__content">
-          <small className="" >#Administra tu Agenda</small>
-          <h4 className="" >Ingresa y Gestiona tu Agenda</h4>
-          <h3 className="" >Administra toda tu agenda</h3>
-          <h2 className="" >Con nosotros</h2>
+        <div className="auth__slogan">
+          <span className="auth__slogan-hashtag" ><BiTask /> Administra tu Agenda</span>
+          <h2 className="auth__slogan-message" >Ingresa y Gestiona tu Agenda</h2>
+          <h2 className="auth__slogan-title" >Distrufa de una interfaz</h2>
+          <h2 className="auth__slogan-title" >Fácil y amigable</h2>
         </div>
       </div>
    </AuthLayout>

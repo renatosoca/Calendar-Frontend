@@ -4,4 +4,8 @@ export * from './calendar/AddEventButton';
 export * from './calendar/DeleteEventButton';
 export * from './calendar/CalendarTollbar';
 
-export * from './ui/MessageErrorApi';
+export * from './auth/ErrorMessageAPI';
+export * from './auth/SuccessMessageAPI';
+
+export * from './auth/ConfirmAccount';
+export * from './auth/UnconfirmedAccount';

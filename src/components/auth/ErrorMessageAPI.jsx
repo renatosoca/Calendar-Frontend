@@ -1,20 +1,20 @@
 import { useDispatch } from 'react-redux';
 
-import { startClearMessageError } from '../../store';
+import { startClearMessages } from '../../store';
 import { MdOutlineError, MdClose } from 'react-icons/md';
 
-export const MessageErrorApi = ({ messageError }) => {
+export const ErrorMessageAPI = ({ messageError }) => {
   const dispatch = useDispatch();
 
   const handleClearError = () => {
-    dispatch( startClearMessageError() );
+    dispatch( startClearMessages() );
   }
 
   return (
     <div className='form__message'>
-      <div className="form__message-content">
-        <MdOutlineError className='form__icon form__icon-error' />
+      <MdOutlineError className='form__icon form__icon-error' />
 
+      <div className="form__message-content">
         <p className="form__message-text">{ messageError }</p>
       </div>
 

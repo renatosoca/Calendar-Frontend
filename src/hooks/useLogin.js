@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { startLogin } from '../store';
 
-export const useLogin = ( formState = {}, isFormValid ) => {
+export const useLogin = ( formState = {}, isFormValid, onResetForm ) => {
   
   const dispatch = useDispatch();
   const { errorMessage, status } = useSelector( state => state.auth );
@@ -19,6 +19,8 @@ export const useLogin = ( formState = {}, isFormValid ) => {
 
     if ( !isFormValid ) return;
     dispatch( startLogin( formState ) );
+    setFormSubmitted( false );
+    onResetForm();
   }
 
   return {

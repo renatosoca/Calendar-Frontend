@@ -1,7 +1,7 @@
 export * from './AppRoutes';
 
-export * from './auth/AuthRoutes';
+export * from './AuthRoutes';
 
-export * from './public/PublicRoutes';
+export * from './PublicRoutes';
 
-export * from './calendar/CalendarRoutes';
+export * from './CalendarRoutes';

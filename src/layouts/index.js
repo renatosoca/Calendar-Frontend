@@ -1,5 +1,5 @@
-export * from './auth/AuthLayout';
+export * from './AuthLayout';
 
-export * from './calendar/CalendarLayout';
+export * from './CalendarLayout';
 
-export * from './public/PublicLayout';
+export * from './PublicLayout';

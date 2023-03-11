@@ -9,7 +9,7 @@ export const CalendarLayout = ({ children }) => {
   const { name } = user;
 
   return (
-    <div className="CalendarLayout animate__animated animate__fadeIn">
+    <div className="calendar animate__animated animate__fadeIn">
 
       { status === 'authenticated' && children }
       

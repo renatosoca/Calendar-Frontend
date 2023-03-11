@@ -16,8 +16,8 @@ export const AppRoutes = () => {
   
   return (
     <Routes>
-      <Route path="/auth/*" element={ <AuthRoutes /> } />
       <Route path="/*" element={ <PublicRoutes /> } />
+      <Route path="/auth/*" element={ <AuthRoutes /> } />
 
       //Ruta Privada
       <Route path="/calendar/*" element={ <CalendarRoutes /> } />

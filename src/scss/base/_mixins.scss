@@ -1,0 +1,30 @@
+@use './variables' as v;
+@mixin tablet {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+@mixin phone {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin button($bgColor, $textColor) {
+  background-color: $bgColor;
+  padding: 1.5rem 4rem;
+  color: $textColor;
+  font-size: 1.8rem;
+  font-weight: v.$font-bold;
+  border: none;
+  transition-property: background-color;
+  transition-duration: .3s;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken( $bgColor, 10% );
+  }
+}
