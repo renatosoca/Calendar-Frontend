@@ -25,6 +25,7 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
     });
   };
 
+  //Para Fechas con Horas
   const onInputChangeDate = ( e, changing ) => {
     console.log({ e, changing });
     setFormState({

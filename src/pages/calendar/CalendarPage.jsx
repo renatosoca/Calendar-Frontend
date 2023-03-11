@@ -26,13 +26,9 @@ export const CalendarPage = () => {
     console.log(data, 'drop');
   };
 
-  const handleShowMore = (events, date) => {
-    console.log({ events, date });
-  }
-
   return (
     <CalendarLayout>
-      <DnDCalendar
+      <Calendar
         views={['month', 'week', 'day', 'agenda', 'work_week']}
         defaultView={ lastView }
         events={ events }
@@ -55,7 +51,6 @@ export const CalendarPage = () => {
         onSelectEvent={ handleSelect }
         onView={ handleViewChange }
         onSelectSlot={ handleSelectSlot }
-        onShowMore={ handleShowMore }
         selectable
         /* DROP */
         onEventDrop={onEventDrop}

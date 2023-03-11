@@ -98,7 +98,7 @@ export const LoginPage = () => {
       <div className="auth__info">
         <div className="auth__slogan">
           <span className="auth__slogan-hashtag" ><BiTask /> Administra tu Agenda</span>
-          <h2 className="auth__slogan-message" >Ingresa y Gestiona tu Agenda</h2>
+          <h2 className="auth__slogan-message" >Ingresa y Gestiona día a día</h2>
           <h2 className="auth__slogan-title" >Distrufa de una interfaz</h2>
           <h2 className="auth__slogan-title" >Fácil y amigable</h2>
         </div>

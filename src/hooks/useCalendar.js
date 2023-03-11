@@ -41,7 +41,6 @@ export const useCalendar = () => {
 
   const handleSelect = ( e ) => {
     dispatch( startEventActiveModal( e ) );
-    console.log(e, 'Select');
   }
 
   const handleDobleClick = ( e ) => {
@@ -52,10 +51,8 @@ export const useCalendar = () => {
     localStorage.setItem( 'lastView', e );
   }
 
-  //Falta Guardas el evento en la base de datos
   const handleSelectSlot = ({ start, end}) => {
-    console.log({start, end}, 'Select Slot');
-    dispatch( startEventActiveModal({ start, end, title: '', notes: '', user: ''}) );
+    dispatch( startEventActiveModal({ start, end, title: '', notes: ''}) );
     dispatch( startOpenModal() );
   }
 
