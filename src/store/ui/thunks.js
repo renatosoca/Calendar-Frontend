@@ -1,4 +1,4 @@
-import { onCloseModal, onOpenModal } from "./uiSlice";
+import { onCloseModal, onCloseModalEvent, onOpenModal, onOpenModalEvent } from "./uiSlice";
 
 export const startOpenModal = () => {
   return (dispatch) => {
@@ -9,5 +9,17 @@ export const startOpenModal = () => {
 export const startCloseModal = () => {
   return (dispatch) => {
     dispatch( onCloseModal() );
+  }
+}
+
+export const startModalEvent = () => {
+  return (dispatch) => {
+    dispatch( onOpenModalEvent() );
+  }
+}
+
+export const startCloseModalEvent = () => {
+  return (dispatch) => {
+    dispatch( onCloseModalEvent() );
   }
 }

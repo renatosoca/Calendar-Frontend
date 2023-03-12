@@ -31,18 +31,18 @@ export const CalendarModal = () => {
 
   //Personalizar Errores y estilos del modal
   const formValidations = {
-
+    title: [(title) => title.length > 0, "El titulo es requerido"]
   }
 
   const [ formValues, setFormValues ] = useState( initialForm );
 
   const {
-    formState, title, notes, start, end, onInputChange, onInputChangeDate
+    formState, title, notes, start, end, onInputChange, onInputChangeDate, isFormValid, titleValid, startValid, endValid
   } = useForm( formValues, formValidations );
 
   const {
-    ModalCalendar, activeEvent, handleSubmit, handleCloseModal 
-  } = useCalendarModal( formState );
+    ModalCalendar, activeEvent, isFormSubmit, handleSubmit, handleCloseModal 
+  } = useCalendarModal( formState, isFormValid );
 
   useEffect(() => {
     if ( activeEvent !== null ) setFormValues( activeEvent );
@@ -59,70 +59,80 @@ export const CalendarModal = () => {
     >
       <h1 className="Modal__title"> Nuevo evento </h1>
 
-      <form onSubmit={ handleSubmit } className="Modal__form">
-        <div className="Modal__group">
-          <label htmlFor="date-start" className="Modal__label-date">Fecha y hora inicio</label>
-          <DatePicker
-            id="date-start"
-            locale="es"
-            maxDate={ end }
-            selected={ start }
-            onChange={ (e) => onInputChangeDate( e, 'start' ) }
-            showTimeSelect
-            dateFormat="Pp"
-            timeCaption="Hora"
-            className="Modal__input"
-          />
+      <form 
+        onSubmit={ handleSubmit } 
+        className="Modal__form"
+      >
+        <div>
+          <label htmlFor="date-start" className="Modal__label">Fecha y hora inicio</label>
+          <div className="Modal__group">
+            <DatePicker
+              id="date-start"
+              locale="es"
+              maxDate={ end }
+              selected={ start }
+              onChange={ (e) => onInputChangeDate( e, 'start' ) }
+              showTimeSelect
+              dateFormat="Pp"
+              placeholderText=" "
+              timeCaption="Hora"
+              className="Modal__input"
+            />
+          </div>
         </div>
 
-        <div className={`Modal__group ${  'Modal__group-error' }`} >
-          <label htmlFor="date-end" className="Modal__label-date">Fecha y hora fin</label>
-          <DatePicker
-            id="date-end"
-            locale="es"
-            minDate={ start }
-            selected={ end }
-            onChange={ (e) => onInputChangeDate( e, 'end' ) }
-            showTimeSelect
-            dateFormat="Pp"
-            timeCaption="Hora"
-            className="Modal__input"
-          />
+        <div>
+          <label htmlFor="date-end" className="Modal__label">Fecha y hora fin</label>
+          <div className="Modal__group">
+            <DatePicker
+              id="date-end"
+              locale="es"
+              minDate={ start }
+              selected={ end }
+              onChange={ (e) => onInputChangeDate( e, 'end' ) }
+              showTimeSelect
+              dateFormat="Pp"
+              timeCaption="Hora"
+              className="Modal__input"
+            />
+          </div>
         </div>
 
-        <div className={`Modal__group ${ title && 'Modal__group-error' }`} >
-          <input
-            id="title"
-            type="text"
-            className="Modal__input"
-            placeholder=" "
-            name="title"
-            autoComplete="off"
-            value={ title }
-            onChange={ onInputChange }
-          />
-          <label htmlFor="title" className="Modal__label">Titulo y notas</label>
-          <span className="Modal__message">{ title && 'Titlulo requerid' }</span>
+        <div className="form__content">
+          <div className='form__group' >
+            <input
+              id="title"
+              type="text"
+              className="form__input"
+              placeholder=" "
+              name="title"
+              autoComplete="off"
+              value={ title }
+              onChange={ onInputChange }
+            />
+            <label htmlFor="title" className="form__label">Titulo y notas</label>
+          </div>
+          
+          <span className="form__span">{ isFormSubmit && titleValid }</span>
         </div>
 
-        <div className={`Modal__group ${ notes && 'Modal__group-error' }`}>
+        <div className="form__group">
           <textarea
             id="notes"
             type="text"
-            className="Modal__input"
+            className="form__input"
             placeholder=" "
             rows="2"
             name="notes"
             value={ notes }
             onChange={ onInputChange }
           />
-          <label htmlFor="notes" className="Modal__label">
+          <label htmlFor="notes" className="form__label">
             Información adicional
           </label>
         </div>
 
         <button type="submit" className="btn ">
-          <CgCalendar />
           <span> Guardar</span>
         </button>
       </form>

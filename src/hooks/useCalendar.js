@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startEventActiveModal, startLoadingEvents, startOpenModal } from "../store";
+import { startCloseModalEvent, startDeletingEvent, startEventActiveModal, startLoadingEvents, startModalEvent, startOpenModal } from "../store";
 
 export const useCalendar = () => {
   
   const dispatch = useDispatch();
   const { events, activeEvent } = useSelector( state => state.calendar );
 
-  const [ lastView , setLastView ] = useState(localStorage.getItem('lastView') || 'month')
+  const [ lastView , setLastView ] = useState(localStorage.getItem('lastView') || 'month');
 
   useEffect(() => {
     dispatch( startLoadingEvents() );
@@ -30,30 +30,36 @@ export const useCalendar = () => {
 
   const eventStyleGetter = ( event, start, end, isSelected ) => {
     const style = {
-      backgroundColor: '#0E2237',
-      borderRadius: '2px',
-      color: '#5090D3',
+      backgroundColor: '#C0E8F9',
+      borderRadius: '0',
+      color: '#1D1D1D',
       outline: 'none',
     }
 
-    if ( isSelected ) return { style }
+    if ( isSelected ) {
+      return { style };
+    }
   }
 
   const handleSelect = ( e ) => {
     dispatch( startEventActiveModal( e ) );
+    dispatch( startModalEvent() );
   }
 
   const handleDobleClick = ( e ) => {
     dispatch( startOpenModal() );
+    dispatch( startCloseModalEvent() );
   }
 
   const handleViewChange = ( e ) => {
     localStorage.setItem( 'lastView', e );
+    dispatch( startCloseModalEvent() );
   }
 
   const handleSelectSlot = ({ start, end}) => {
     dispatch( startEventActiveModal({ start, end, title: '', notes: ''}) );
     dispatch( startOpenModal() );
+    dispatch( startCloseModalEvent() );
   }
 
   return {

@@ -1,10 +1,9 @@
-
 export const CalendarEventBox = ({ event }) => {
   
   const { title} = event;
-
+  
   return (
-    <div>
+    <div className="eventBox">
       <strong>{ title }</strong>
     </div>
   )

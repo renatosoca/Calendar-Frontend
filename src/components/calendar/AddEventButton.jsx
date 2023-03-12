@@ -1,7 +1,7 @@
 import { addHours } from 'date-fns';
 import { CgMenuBoxed } from 'react-icons/cg';
 import { useDispatch } from 'react-redux';
-import { startEventActiveModal, startOpenModal } from '../../store';
+import { startCloseModalEvent, startEventActiveModal, startOpenModal } from '../../store';
 
 export const AddEventButton = () => {
   const dispatch = useDispatch();
@@ -19,12 +19,13 @@ export const AddEventButton = () => {
     }));
 
     dispatch( startOpenModal() );
+    dispatch( startCloseModalEvent() );
   }
 
   return (
     <button
       onClick={ handleAddEvent }
-      className="btn__add"
+      className="btn btn__add"
     >
       <CgMenuBoxed className='btn__icon' />
       <span>Evento nuevo</span>

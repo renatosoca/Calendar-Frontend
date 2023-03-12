@@ -203,6 +203,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        border-radius: 1rem;
       }
     }
     /* CONTAINER OPTIONS NAV USER: LOGOUT, PROFILE, ETC.. */
@@ -280,57 +281,53 @@
       }
     }
   }
+
+  .btn {
+    width: max-content;
+    position: fixed;
+    bottom: 50%;
+    right: 50%;
+    border-radius: 4rem;
+    background-color: v.$color-sky-500;
+    color: v.$color-white;
+    font-size: 1.6rem;
+    font-weight: v.$font-bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    padding: 1rem 1.8rem;
+    cursor: pointer;
+    z-index: 999;
+  
+    &__add {
+      bottom: 4rem;
+      right: 4rem;
+    }
+    &__delete {
+      bottom: 4rem;
+      left: 4rem;
+      background-color: #F63E02;
+      color: v.$color-white;
+      font-weight: v.$font-bold;
+    }
+    &__icon {
+      font-size: 2.5rem;
+    }
+  }
+
+  .eventBox {
+    position: relative;
+  }
+
 }
 
-/* Falta */
-/* STYLES CALENDAR */
+/* STYLES CALENDAR LIBRARY */
 .rbc-header {
   border: none;
   padding: .5rem 0;
 }
-
-/* Boton Flotante de Agregar */
-.btn__add {
-  width: auto;
-  position: fixed;
-  bottom: 3rem;
-  right: 3rem;
-  border-radius: 2rem;
-  background-color: var(--bg-black);
-  color: var(--color-white);
-  font-size: 1.6rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem;
-  padding: .7rem 1.5rem;
-  cursor: pointer;
-  z-index: 999;
-}
-.btn__delete {
-  width: auto;
-  position: fixed;
-  bottom: 3rem;
-  left: 3rem;
-  border-radius: 2rem;
-  background-color: var(--bg-black);
-  color: var(--color-white);
-  font-size: 1.6rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem;
-  padding: .7rem 1.5rem;
-  cursor: pointer;
-  z-index: 999;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .3s ease-in-out;
-}
-.btn__delete-active {
-  opacity: 1;
-  pointer-events: initial;
-}
-.btn__icon {
-  font-size: 3rem;
+.rbc-event {
+  background: v.$color-skyBlue;
+  border-radius: .2rem;
 }
