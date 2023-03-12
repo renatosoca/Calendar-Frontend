@@ -54,7 +54,7 @@
       font-weight: 600;
       padding: 1rem 1.5rem;
       border-color: v.$color-gray-50;
-      border-width: .15rem;
+      border-width: .2rem;
       border-style: solid;
       border-radius: 1rem;
       transition: background-color .15s ease-in-out;
@@ -121,7 +121,7 @@
       padding: 1rem 1.5rem;
       border-radius: 1rem;
       border-color: v.$color-gray-50;
-      border-width: .1rem;
+      border-width: .2rem;
       border-style: solid;
       cursor: pointer;
       transition: border-color .15s ease-in-out;
@@ -133,13 +133,13 @@
     &__option {
       min-width: 20rem;
       position: absolute;
-      top: 120%;
+      top: 110%;
       right: 0;
       background-color: v.$bg-white;
       color: v.$color-blue;
       border-radius: .7rem;
       border-color: v.$color-gray-50;
-      border-width: .15rem;
+      border-width: .2rem;
       border-style: solid;
       padding: 1.5rem 0;
       z-index: 100;
@@ -187,7 +187,7 @@
       font-size: 2.3rem;
       border-radius: 1rem;
       border-color: v.$color-gray-50;
-      border-width: .15rem;
+      border-width: .2rem;
       border-style: solid;
       transition: border-color .15s ease-in-out;
       
@@ -209,7 +209,7 @@
     /* CONTAINER OPTIONS NAV USER: LOGOUT, PROFILE, ETC.. */
     &__profile {
       position: absolute;
-      top: 120%;
+      top: 110%;
       right: 0;
       background-color: v.$bg-white;
       color: v.$color-gray-300;
@@ -219,7 +219,7 @@
       padding: 1rem 0 .5rem;
       font-size: 1.8rem;
       border-color: v.$color-gray-50;
-      border-width: .15rem;
+      border-width: .2rem;
       border-style: solid;
 
       &--sign {
@@ -299,6 +299,7 @@
     padding: 1rem 1.8rem;
     cursor: pointer;
     z-index: 999;
+    transition: transform .15s ease-in-out;
   
     &__add {
       bottom: 4rem;
@@ -314,20 +315,24 @@
     &__icon {
       font-size: 2.5rem;
     }
+    
+    &:hover{
+      transform: scale(1.02);
+    }
   }
 
   .eventBox {
     position: relative;
   }
-
+  
+  /* STYLES CALENDAR LIBRARY */
+  .rbc-header {
+    border: none;
+    padding: .5rem 0;
+  }
+  .rbc-event {
+    background: v.$color-skyBlue;
+    border-radius: .2rem;
+  }
 }
 
-/* STYLES CALENDAR LIBRARY */
-.rbc-header {
-  border: none;
-  padding: .5rem 0;
-}
-.rbc-event {
-  background: v.$color-skyBlue;
-  border-radius: .2rem;
-}

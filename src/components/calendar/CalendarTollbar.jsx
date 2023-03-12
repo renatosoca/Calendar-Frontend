@@ -13,6 +13,8 @@ export const CalendarTollbar = ( props ) => {
   onNavigate,
   onView, 
   } = props;
+  
+  const newViews = views.map( option => ({ label: option, value: option }));
 
   const dispatch = useDispatch();
   const { user } = useSelector( state => state.auth );
@@ -20,22 +22,33 @@ export const CalendarTollbar = ( props ) => {
   const [selectedOption, setSelectedOption] = useState(views);
   const [showOptions, setShowOptions] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
     onView(option.value);
     setShowOptions(false);
   };
-  const newViews = views.map( option => ({ label: option, value: option }));
 
   const handleShowOptions = () => {
-    if ( showProfile ) return;
-    setShowOptions(!showOptions)
+    setShowSettings(false);
+    setShowProfile(false);
+    //TOGGLE
+    setShowOptions(!showOptions);
   }
 
   const handleMenuProfile = () => {
-    if ( showOptions ) return;
+    setShowSettings(false);
+    setShowOptions(false);
+    //TOGGLE
     setShowProfile(!showProfile);
+  }
+
+  const handleMenuSettings = () => {
+    setShowProfile(false);
+    setShowOptions(false);
+    //TOGGLE
+    setShowSettings(!showSettings);
   }
 
   const handleClickLogout = () => {
@@ -116,42 +129,49 @@ export const CalendarTollbar = ( props ) => {
                 </button>
               </div>
               
-              <div className={`tollbar__profile ${ (showProfile && !showOptions) ? '': 'hidden' }`}>
+              <div className={`tollbar__profile ${ (showProfile) ? '': 'hidden' }`}>
                 <div className='tollbar__profile--sign'>
                   <small className='tollbar__profile-top'>Ingresaste como</small>
                   <h4 className='tollbar__profile-user'>{ user.name }</h4>
                 </div>
-
-                <div className='tollbar__profile--options'>
-                  <button className='tollbar__profile--option'>
-                    <span>Tu perfil</span>
-                  </button>
-
-                  <button className='tollbar__profile--option'>
-                    <span>En construcción</span>
-                  </button>
-
-                  <button className='tollbar__profile--option'>
-                    <span>En construcción</span>
-                  </button>
-                </div>
-
-                <div className='tollbar__profile-content'>
-                  <button
-                  onClick={ handleClickLogout }
-                    className='tollbar__profile--logout'
-                  >
-                    <CgLogOut />
-                    <span>Salir</span>
-                  </button>
-                </div>
               </div>
             </div>
 
-            <div className='tollbar__menu'>
-              <button className='tollbar__menu-icon'>
-                <AiOutlineSetting />
-              </button>
+            <div className='tollbar__menus-relative'>
+              <div className='tollbar__menu'>
+                <button
+                  className='tollbar__menu-icon'
+                  onClick={ handleMenuSettings }
+                >
+                  <AiOutlineSetting />
+                </button>
+              </div>
+
+              <div className={`tollbar__profile ${ (showSettings) ? '': 'hidden' }`}>
+                  <div className='tollbar__profile--options'>
+                    <button className='tollbar__profile--option'>
+                      <span>Tu perfil</span>
+                    </button>
+
+                    <button className='tollbar__profile--option'>
+                      <span>En construcción</span>
+                    </button>
+
+                    <button className='tollbar__profile--option'>
+                      <span>En construcción</span>
+                    </button>
+                  </div>
+
+                  <div className='tollbar__profile-content'>
+                    <button
+                    onClick={ handleClickLogout }
+                      className='tollbar__profile--logout'
+                    >
+                      <CgLogOut />
+                      <span>Salir</span>
+                    </button>
+                  </div>
+              </div>
             </div>
           </div>
         </div>

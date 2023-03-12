@@ -33,7 +33,9 @@
     position: fixed;
   }
   &__container {
-    min-width: 40rem;
+    max-width: 45rem;
+    width: 95%;
+    margin: 0 auto;
     inset: 50% auto auto 50%;
     transform: translate(-50%, -50%);
     position: absolute;

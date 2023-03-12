@@ -132,7 +132,7 @@ export const CalendarModal = () => {
           </label>
         </div>
 
-        <button type="submit" className="btn ">
+        <button type="submit" className="form__submit">
           <span> Guardar</span>
         </button>
       </form>

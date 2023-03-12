@@ -32,26 +32,6 @@ a {
 }
 
 /* BOTTONS */
-.btn {
-  display: block;
-  width: 100%;
-  background: #000;
-  color: #fff;
-  padding: 1.4rem 1.2rem;
-  font-size: 1.7rem;
-  border-radius: .4rem;
-  transition: transform .4s ease;
-  cursor: pointer;
-}
-.btn__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-.btn:hover{
-  transform: scale(1.02);
-}
 
 /* HIDDEN FIELDS, WARNING IS IMPORTANT */
 .hidden {
