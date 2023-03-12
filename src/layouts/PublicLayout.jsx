@@ -1,9 +1,10 @@
+import { Header } from "../components"
 
 
 export const PublicLayout = ({ children }) => {
   return (
-    <div>
-      <h1>Pagina en Mantenimeinto</h1>
+    <div className="home animate__animated animate__fadeIn">
+      <Header />
       { children }
     </div>
   )

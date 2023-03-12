@@ -9,3 +9,5 @@ export * from './auth/SuccessMessageAPI';
 
 export * from './auth/ConfirmAccount';
 export * from './auth/UnconfirmedAccount';
+
+export * from './public/Header';

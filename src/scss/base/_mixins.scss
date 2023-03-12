@@ -10,6 +10,12 @@
   }
 }
 
+@mixin sm {
+  @media screen and (max-width: 576px) {
+    @content;
+  }
+}
+
 @mixin button($bgColor, $textColor) {
   background-color: $bgColor;
   padding: 1.5rem 4rem;

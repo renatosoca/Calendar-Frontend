@@ -1,0 +1,289 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.home {
+  min-height: 100vh;
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: rgb(255, 255, 255, .5);
+    backdrop-filter: blur(.5rem);
+
+    /* CONTAINER HEADER */
+    &__container {
+      max-width: 120rem;
+      padding: 1rem 1.5rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      @include m.phone {
+        display: flex;
+        justify-content: space-between;
+      }
+
+    }
+    /* GRID LEFT */
+    &__left {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      color: v.$color-sky;
+    }
+    &__logo {
+      font-size: 1.4rem;
+      user-select: none;
+    }
+    &__barra {
+      flex: 1;
+
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: .2rem;
+        background-color: v.$color-sky;
+        border-radius: .5rem;
+      }
+    }
+    /* GRID RIGHT */
+    &__right {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include m.phone {
+        justify-content: flex-end
+      }
+    }
+    /* NAVBAR CONTAINER */
+    &__nav {
+      padding-left: 5rem;
+      @include m.phone {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100vh;
+        opacity: 0;
+        pointer-events: none;
+        padding-left: 0;
+        background-color: rgb(0, 0, 0, .3);
+      }
+      &-active {
+        @include m.phone {
+          opacity: 1;
+          pointer-events: all;
+          transition: opacity .15s ease-in-out;
+        }
+      }
+    }
+    /* NAVBAR */
+    &__content {
+      transition: right .3s ease-in-out;
+      @include m.phone {
+        position: absolute;
+        top: 0;
+        right: -100%;
+        max-width: 30rem;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: #fff;
+        border-radius: 1.5rem 0 0 1.5rem;
+        border: .1rem solid v.$color-gray-300;
+        z-index: 10;
+      }
+
+      &-active {
+        @include m.phone {
+          right: 0;
+          transition: right .3s ease-in-out;
+        }
+      }
+      &-header {
+        display: none;
+        position: relative;
+        padding: 2.5rem 1rem;
+        border-bottom: .2rem solid v.$color-gray-100;
+        width: 100%;
+        @include m.phone {
+          display: block;
+        }
+      }
+      &-title {
+        font-size: 1.5rem;
+        font-weight: v.$font-normal;
+      }
+      &-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        background-color: inherit;
+        color: v.$color-blue;
+        cursor: pointer;
+      }
+    }
+    /* NAVBAR LIST */
+    &__list {
+      display: flex;
+      gap: 2rem;
+      @include m.phone {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        width: 100%;
+        padding: 1.5rem 1rem;
+      }
+    }
+    &__link {
+      position: relative;
+      font-size: 1.5rem;
+      color: v.$color-sky;
+      text-decoration: none;
+      transition: all .3s ease-in-out;
+      font-weight: v.$font-bold;
+
+      &::after {
+        position: absolute;
+        top: 110%;
+        content: '';
+        display: block;
+        width: 0;
+        height: .09rem;
+        background-color: v.$color-sky;
+        transition: all .2s ease-in-out;
+        border-radius: .5rem;
+        z-index: 10;
+      }
+      &:hover {
+        &.header__link::after {
+          width: 100%;
+        }
+      }
+      &-active {
+        color: v.$color-sky-500;
+      }
+    }
+    /* LOGIN AND MENU */
+    &__menus {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    &__login {
+      font-size: 1.5rem;
+      padding: .7rem 1.5rem;
+      background-color: v.$color-blue;
+      color: v.$color-white;
+      font-weight: v.$font-normal;
+      border-radius: .3rem;
+      transition: background-color .2s ease-in-out;
+      @include m.sm {
+        font-size: 1.3rem;
+      }
+
+      &:hover {
+        background-color: v.$color-sky;
+      }
+    }
+    &__menu {
+      display: none;
+      color: v.$color-sky;
+      font-size: 2rem;
+      align-items: center;
+      border-radius: 50%;
+      padding: .7rem;
+      cursor: pointer;
+      background-color: v.$color-gray-50;
+      transition: background-color .2s ease-in-out;
+      @include m.phone {
+        display: flex;
+      }
+
+      &:hover {
+        background-color: v.$color-gray-100;
+      }
+    }
+  }
+
+  .main {
+    background-image: url('./bg-home.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top: 6rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    &__container {
+      flex: 1;
+      max-width: 120rem;
+      height: 100%;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-self: center;
+      align-items: center;
+      gap: 4rem;
+    }
+    &__content {
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      @include m.phone {
+        grid-template-columns: 1fr;
+        place-items: center;
+      }
+    }
+    &__left {
+      padding: 0 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      @include m.phone {
+        text-align: center;
+      }
+    }
+    &__title {
+      font-size: 4rem;
+      text-transform: uppercase;
+      padding-bottom: 1.5rem;
+    }
+    &__info {
+      font-size: 1.5rem;
+      font-weight: v.$font-normal;
+    }
+    &__right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &__explore {
+      background-color: v.$color-gray-300;
+      border-radius: 50%;
+      width: 20rem;
+      height: 20rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: v.$color-gray-50;
+      font-size: 2rem;
+    }
+  }
+}

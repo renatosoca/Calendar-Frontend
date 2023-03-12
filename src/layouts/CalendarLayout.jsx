@@ -15,6 +15,8 @@ export const CalendarLayout = ({ children }) => {
       
       { status === 'not-authenticated' && <Navigate to='/auth/login' /> }
       
+      { status === 'user-logout' && <Navigate to='/' /> }
+      
     </div>
   )
 }
