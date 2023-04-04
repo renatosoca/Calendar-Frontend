@@ -3,6 +3,8 @@
 
 /* STYLES CALENDAR */
 .calendar {
+  position: relative;
+  overflow: hidden;
 
   .tollbar {
     position: relative;
@@ -214,7 +216,7 @@
       background-color: v.$bg-white;
       color: v.$color-gray-300;
       border-radius: 1rem;
-      min-width: 15rem;
+      min-width: 20rem;
       z-index: 100;
       padding: 1rem 0 .5rem;
       font-size: 1.8rem;
@@ -225,9 +227,6 @@
       &--sign {
         padding: 0 1.5rem;
         color: v.$color-gray-700;
-        border-bottom: .1rem;
-        border-bottom-style: solid;
-        border-bottom-color: v.$color-gray-50;
         padding-bottom: 1rem;
       }
       &-top {
@@ -235,7 +234,14 @@
         font-weight: v.$font-normal;
       }
       &-user {
-        font-size: 1.2rem;
+        padding-top: 1rem;
+        padding-bottom: .5rem;
+        font-size: 1.5rem;
+      }
+      &-email {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: v.$color-gray-300;
       }
       &--options {
         padding: .5rem 0;

@@ -1,16 +1,13 @@
 import axios from 'axios';
-import { getEnvVariables } from '../helpers';
-
-const { VITE_API_URI } = getEnvVariables();
 
 const calendarApi = axios.create({
-  baseURL: VITE_API_URI,
+  baseURL: `${import.meta.env.VITE_API_URI}/api`,
 });
 
 calendarApi.interceptors.request.use( config => {
   config.headers = {
     ...config.headers,
-    'x-token': localStorage.getItem('token') || '',
+    Authorization: `Bearer ${localStorage.getItem('jwtCalentar') || ''}`,
   }
   return config;
 });

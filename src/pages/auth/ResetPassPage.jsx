@@ -4,23 +4,14 @@ import { VscLoading } from 'react-icons/vsc';
 import { AuthLayout } from '../../layouts';
 import { useForm, useResetPass } from '../../hooks';
 import { ErrorMessageAPI, SuccessMessageAPI } from '../../components';
-
-const initialForm = {
-  password: '',
-  confirmPassword: '',
-}
+import { initialFormResetPass, validationsFormResetPass } from '../../data';
 
 export const ResetPassPage = () => {
   const { token } = useParams();
 
-  const formValidations = {
-    password: [ (password) => (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/).test(password), 'Se requiere al menos una mayúscula, una minúscula, un número, un carácter especial y un mínimo de 8 caracteres.' ],
-    confirmPassword: [ (confirmPassword, password) => confirmPassword === password, 'Las contraseña no coinciden.' ]
-  };
-
   const { 
     formState, password, confirmPassword, onInputChange, isFormValid, passwordValid, confirmPasswordValid, onResetForm
-  } = useForm( initialForm, formValidations );
+  } = useForm( initialFormResetPass, validationsFormResetPass );
 
   const { 
     errorMessage, successMessage, isResetPass, formSubmitted, isLoading, handleSubmit

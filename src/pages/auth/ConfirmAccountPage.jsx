@@ -1,16 +1,14 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { ConfirmAccount, UnconfirmedAccount } from '../../components';
+import { useAuth } from '../../hooks';
 import { startConfirmAccount } from '../../store';
 
 export const ConfirmAccountPage = () => {
   
   const { token } = useParams();
-  
-  const dispatch = useDispatch();
-  const { errorMessage, successMessage } = useSelector( state => state.auth );
+  const { errorMessage, successMessage, dispatch } = useAuth();
 
   useEffect(() => {
     dispatch( startConfirmAccount({ token }) );

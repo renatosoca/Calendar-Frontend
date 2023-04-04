@@ -1,0 +1,90 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.profile {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: v.$color-white;
+
+  &__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    padding: 3rem 2rem;
+    border-color: v.$color-gray-300;
+    border-bottom-width: .2rem;
+    border-style: solid;
+    @include m.sm {
+      padding: 3rem 1.5rem;
+      justify-content: start;
+    }
+  }
+  &__link {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 3%;
+    padding: .8rem 1.5rem;
+    border-radius: .5rem;
+    display: block;
+    border: .2rem solid v.$color-gray-50;
+    transition: background-color .3s ease-in-out;
+    @include m.sm {
+      left: inherit;
+      right: 3%;
+    }
+
+    &:hover {
+      background-color: v.$color-gray-100;
+    }
+  }
+  &__main {
+    flex: 1;
+    padding-top: 3rem;
+    @include m.sm {
+      padding: 3rem 1.5rem 0;
+    }
+  }
+  &__container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  &__content {
+    max-width: 50rem;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 3rem;
+  }
+  &__title {
+    font-size: 4rem;
+    font-weight: bold;
+    color: v.$color-gray-300;
+  }
+  &__description {
+    padding-top: 1rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: v.$color-gray-300;
+  }
+  &__notification {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: v.$color-gray-300;
+  }
+  &__form {
+    max-width: 50rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-bottom: 3rem;
+  }
+}

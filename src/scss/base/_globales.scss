@@ -20,7 +20,7 @@ body {
 }
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #007FFF;
   text-decoration: none;
 }
 ul {
@@ -34,9 +34,19 @@ ul {
   width: 80%;
 }
 
-/* BOTTONS */
-
 /* HIDDEN FIELDS, WARNING IS IMPORTANT */
 .hidden {
   display: none;
+}
+
+::-webkit-scrollbar {
+  width: 0.9rem;
+
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: .5rem;
+  background: #888;
 }

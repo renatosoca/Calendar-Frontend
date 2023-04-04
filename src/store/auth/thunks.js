@@ -1,6 +1,6 @@
 import { calendarApi } from "../../api";
-import { onLogoutCalendar } from "../calendar/calendarSlice";
-import { onChecking, onClearMessage, onLogin, onLogout, onResetPassword, onShowErrorMessage, onShowSuccessMessage } from "./authSlice";
+import { onChangeMsgEvent, onLogoutCalendar } from "../calendar/calendarSlice";
+import { onChecking, onClearMessage, onLoading, onLogin, onLogout, onResetPassword, onShowErrorMessage, onShowSuccessMessage } from "./authSlice";
 
 export const startLogin = ({ email, password }) => {
   return async (dispatch) => {
@@ -8,11 +8,9 @@ export const startLogin = ({ email, password }) => {
       dispatch( onChecking() );
 
       const { data } = await calendarApi.post("/auth/login", { email, password });
-      localStorage.setItem( "token", data.jwt );
-      localStorage.setItem( "time-token-start", new Date().getTime() );
+      localStorage.setItem( "jwtCalentar", data.jwt );
       
-      const { _id, name } = data;
-      dispatch( onLogin({ _id, name, email }) );
+      dispatch( onLogin( data.user ) );
 
     } catch (error) {
       dispatch( onLogout({ errorMessage: error.response.data.msg }) );
@@ -20,12 +18,12 @@ export const startLogin = ({ email, password }) => {
   };
 }
 
-export const startRegister = ({ email, password, name }) => {
+export const startRegister = ({ name, lastname, email, password }) => {
   return async (dispatch) => {
     try {
       dispatch( onChecking() );
 
-      const { data } = await calendarApi.post("/auth/register", { email, password, name });
+      const { data } = await calendarApi.post("/auth/register", { name, lastname, email, password } );
       dispatch( onShowSuccessMessage( data.msg ) );
 
     } catch (error) {
@@ -36,19 +34,17 @@ export const startRegister = ({ email, password, name }) => {
 
 export const startChecking = () => {
   return async (dispatch) => {
-    const token = localStorage.getItem('token') || '';
-    if ( !token ) dispatch( onLogout() );
+    const token = localStorage.getItem('jwtCalentar') || '';
+    if ( !token ) return dispatch( onLogout() );
 
     try {
-      const { data } = await calendarApi.get( "/auth/renew" );
-      localStorage.setItem( "token", data.jwt );
-      localStorage.setItem( "time-token-start", new Date().getTime() );
+      const { data } = await calendarApi.get( "/auth/revalidateAuth" );
+      localStorage.setItem( "jwtCalentar", data.jwt );
       
-      const { _id, name, email } = data;
-      dispatch( onLogin({ _id, name, email }) );
+      dispatch( onLogin( data.user ) );
       
     } catch (error) {
-      localStorage.removeItem( "token" );
+      localStorage.removeItem( "jwtCalentar" );
       dispatch( onLogout() );  
     }
   }
@@ -59,7 +55,7 @@ export const startConfirmAccount = ({ token }) => {
     try {
       dispatch( onChecking() );
       
-      const { data } = await calendarApi.get(`/auth/confirm/${ token }`);
+      const { data } = await calendarApi.get(`/auth/confirm-account/${ token }`);
       dispatch( onShowSuccessMessage( data.msg ) );
 
     } catch (error) {
@@ -87,12 +83,53 @@ export const startResetPassword = ({ token, password }) => {
     try {
       dispatch( onChecking() );
       
-      const { data } = await calendarApi.post(`/auth/reset/${ token }`, { password });
-      dispatch( onResetPassword({ email: data.email, name: data.name }) );
-      localStorage.setItem( "token", data.jwt );
+      const { data } = await calendarApi.post(`/auth/reset-password/${ token }`, { password });
+      localStorage.setItem( "jwtCalentar", data.jwt );
+
+      dispatch( onResetPassword( data.user ) );
 
     } catch (error) {
       dispatch( onLogout({ errorMessage: error.response.data.msg }) );
+    }
+  }
+}
+
+export const startUpdateUserProfile = ({ _id, name, lastname, email, password }) => {
+  return async (dispatch) => {
+    try {
+      dispatch( onLoading('loading') );
+      
+      await calendarApi.put(`/auth/user-profile/${_id}`, { name, lastname, email, password });
+      dispatch( onLogin({ _id, name, lastname, email }) );
+      dispatch( onChangeMsgEvent({ msgEvent: 'Usuario editado correctamente', ok: true }) );
+
+    } catch (error) {
+      dispatch( onChangeMsgEvent({ msgEvent: error.response.data.msg, ok: falso }) );
+    } finally {
+      dispatch( onLoading('') );
+      setTimeout(() => {
+        dispatch( onChangeMsgEvent({ msgEvent: '', ok: '' }) );
+      }, 2500);
+    }
+  }
+}
+
+export const startUserResetPassword = ({ oldPassword, newPassword }) => {
+  return async (dispatch, getState) => {
+    const { user } = getState().auth;
+    try {
+      dispatch( onLoading('loading') );
+      
+      await calendarApi.put(`/auth/password-profile/${user._id}`, { oldPassword, newPassword } );
+      dispatch( onChangeMsgEvent({ msgEvent: 'Contraseña editada correctamente', ok: true }) );
+
+    } catch (error) {
+      dispatch( onChangeMsgEvent({ msgEvent: error.response.data.msg, ok: false }) );
+    } finally {
+      dispatch( onLoading('') );
+      setTimeout(() => {
+        dispatch( onChangeMsgEvent({ msgEvent: '', ok: '' }) );
+      }, 2500);
     }
   }
 }
@@ -105,8 +142,7 @@ export const startClearMessages = () => {
 
 export const startLogout = () => {
   return (dispatch) => {
-    localStorage.removeItem( "token" );
-    localStorage.removeItem( "time-token-start" );
+    localStorage.removeItem( "jwtCalentar" );
     dispatch( onLogout() );
     dispatch( onLogoutCalendar() );
   }

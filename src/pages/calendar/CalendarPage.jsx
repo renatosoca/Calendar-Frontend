@@ -59,9 +59,7 @@ export const CalendarPage = () => {
       />
 
       <CalendarModal />
-
       <AddEventButton />
-
       <DeleteEventButton />
     </CalendarLayout>
   )

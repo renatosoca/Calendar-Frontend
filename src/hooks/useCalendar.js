@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startCloseModalEvent, startDeletingEvent, startEventActiveModal, startLoadingEvents, startModalEvent, startOpenModal } from "../store";
+import { startHiddenBtnDelete, startDeletingEvent, startEventActiveModal, startLoadingEvents, startShowBtnDelete, startOpenModal } from "../store";
 
 export const useCalendar = () => {
   
@@ -43,23 +43,23 @@ export const useCalendar = () => {
 
   const handleSelect = ( e ) => {
     dispatch( startEventActiveModal( e ) );
-    dispatch( startModalEvent() );
+    dispatch( startShowBtnDelete() );
   }
 
   const handleDobleClick = ( e ) => {
     dispatch( startOpenModal() );
-    dispatch( startCloseModalEvent() );
+    dispatch( startHiddenBtnDelete() );
   }
 
   const handleViewChange = ( e ) => {
     localStorage.setItem( 'lastView', e );
-    dispatch( startCloseModalEvent() );
+    dispatch( startHiddenBtnDelete() );
   }
 
   const handleSelectSlot = ({ start, end}) => {
     dispatch( startEventActiveModal({ start, end, title: '', notes: ''}) );
     dispatch( startOpenModal() );
-    dispatch( startCloseModalEvent() );
+    dispatch( startHiddenBtnDelete() );
   }
 
   return {

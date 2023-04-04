@@ -1,25 +1,17 @@
-import { onCloseModal, onCloseModalEvent, onOpenModal, onOpenModalEvent } from "./uiSlice";
+import { onCloseModal, onCloseBtnDelete, onOpenModal, onOpenBtnDelete } from "./uiSlice";
 
 export const startOpenModal = () => {
-  return (dispatch) => {
-    dispatch( onOpenModal() );
-  }
+  return (dispatch) => dispatch( onOpenModal() );
 }
 
 export const startCloseModal = () => {
-  return (dispatch) => {
-    dispatch( onCloseModal() );
-  }
+  return (dispatch) => dispatch( onCloseModal() );
 }
 
-export const startModalEvent = () => {
-  return (dispatch) => {
-    dispatch( onOpenModalEvent() );
-  }
+export const startShowBtnDelete = () => {
+  return (dispatch) => dispatch( onOpenBtnDelete() );
 }
 
-export const startCloseModalEvent = () => {
-  return (dispatch) => {
-    dispatch( onCloseModalEvent() );
-  }
+export const startHiddenBtnDelete = () => {
+  return (dispatch) => dispatch( onCloseBtnDelete() );
 }

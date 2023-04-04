@@ -1,4 +1,4 @@
-import { Header } from "../components"
+import { Footer, Header } from "../components"
 
 
 export const PublicLayout = ({ children }) => {
@@ -6,6 +6,7 @@ export const PublicLayout = ({ children }) => {
     <div className="home animate__animated animate__fadeIn">
       <Header />
       { children }
+      <Footer />
     </div>
   )
 }

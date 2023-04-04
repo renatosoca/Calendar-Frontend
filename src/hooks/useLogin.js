@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { startLogin } from '../store';
+import { useAuth } from './useAuth';
 
 export const useLogin = ( formState = {}, isFormValid, onResetForm ) => {
   
-  const dispatch = useDispatch();
-  const { errorMessage, status } = useSelector( state => state.auth );
+  const { dispatch, errorMessage, status} = useAuth();
 
   const [ isLogin, setIsLogin ] = useState(false);
   const [ formSubmitted, setFormSubmitted ] = useState( false );

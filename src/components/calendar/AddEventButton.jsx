@@ -1,7 +1,7 @@
 import { addHours } from 'date-fns';
 import { CgMenuBoxed } from 'react-icons/cg';
 import { useDispatch } from 'react-redux';
-import { startCloseModalEvent, startEventActiveModal, startOpenModal } from '../../store';
+import { startHiddenBtnDelete, startEventActiveModal, startOpenModal } from '../../store';
 
 export const AddEventButton = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export const AddEventButton = () => {
     }));
 
     dispatch( startOpenModal() );
-    dispatch( startCloseModalEvent() );
+    dispatch( startHiddenBtnDelete() );
   }
 
   return (

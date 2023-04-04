@@ -1,15 +1,15 @@
 
 import { differenceInSeconds } from "date-fns";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { startCloseModal, startSavingEvent } from "../store";
+import { useUi } from "./useUi";
 
 export const useCalendarModal = ( formState = [], isFormValid ) => {
 
-  const dispatch = useDispatch();
-  const { ModalCalendar } = useSelector((state) => state.ui);
-  const { activeEvent } = useSelector((state) => state.calendar);
+  const { dispatch, ModalCalendar, btnDelete } = useUi();
+  const calendarState = useSelector((state) => state.calendar);
 
   const [ isFormSubmit, setIsFormSubmit ] = useState( false );
 
@@ -24,7 +24,6 @@ export const useCalendarModal = ( formState = [], isFormValid ) => {
     if ( !isFormValid ) return;
 
     dispatch( startSavingEvent( formState ) );
-    dispatch( startCloseModal() );
     setIsFormSubmit( false );
   }
 
@@ -35,8 +34,9 @@ export const useCalendarModal = ( formState = [], isFormValid ) => {
 
   return {
     //States
+    ...calendarState,
     ModalCalendar,
-    activeEvent,
+    btnDelete,
     isFormSubmit,
 
     //Methods

@@ -4,26 +4,12 @@ import { VscLoading } from 'react-icons/vsc';
 import { AuthLayout } from '../../layouts';
 import { useForm, useRegister } from '../../hooks';
 import { ErrorMessageAPI, SuccessMessageAPI } from '../../components';
-
-const initialForm = {
-  name: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-}
+import { initialFormRegister, validationsFormRegister } from '../../data';
 
 export const RegisterPage = () => {
-
-  const formValidations = {
-    name: [ (name) => name.length > 2, 'El nombre es obligatorio.' ],
-    email: [ (email) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/).test(email), 'Tiene que ser un email válido.' ],
-    password: [ (password) => (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/).test(password), 'Se requiere al menos una mayúscula, una minúscula, un número, un carácter especial y un mínimo de 8 caracteres.' ],
-    confirmPassword: [ (confirmPassword, password) => confirmPassword === password, 'Las contraseña no coinciden.' ]
-  };
-
   const { 
-    formState, name, email, password, confirmPassword, onInputChange, isFormValid, nameValid, emailValid, passwordValid, confirmPasswordValid, onResetForm
-  } = useForm( initialForm, formValidations );
+    formState, name, lastname, email, password, confirmPassword, onInputChange, isFormValid, nameValid, lastnameValid, emailValid, passwordValid, confirmPasswordValid, onResetForm
+  } = useForm( initialFormRegister, validationsFormRegister );
 
   const { 
     errorMessage, successMessage, isRegister, formSubmitted, isLoading, handleSubmit
@@ -50,22 +36,42 @@ export const RegisterPage = () => {
           >
             { (!!successMessage && isRegister) && <SuccessMessageAPI messageSuccess={ successMessage } /> }
 
-            <div className='form__content'>
-              <div className={`form__group ${ (!!nameValid && formSubmitted) ? 'form__group-error' : '' }`} >
-                <input
-                  id="name"
-                  type="text"
-                  className="form__input"
-                  placeholder=" "
-                  name="name"
-                  autoComplete="off"
-                  value={ name }
-                  onChange={ onInputChange }
-                />
-                <label htmlFor="name" className="form__label">Nombre</label>
+            <div className='form__container'>
+              <div className='form__content'>
+                <div className={`form__group ${ (!!nameValid && formSubmitted) ? 'form__group-error' : '' }`} >
+                  <input
+                    id="name"
+                    type="text"
+                    className="form__input"
+                    placeholder=" "
+                    name="name"
+                    autoComplete="off"
+                    value={ name }
+                    onChange={ onInputChange }
+                  />
+                  <label htmlFor="name" className="form__label">Nombre</label>
+                </div>
+
+                <span className="form__span">{ formSubmitted && nameValid }</span>
               </div>
 
-              <span className="form__span">{ formSubmitted && nameValid }</span>
+              <div className='form__content'>
+                <div className={`form__group ${ (!!nameValid && formSubmitted) ? 'form__group-error' : '' }`} >
+                  <input
+                    id="lastname"
+                    type="text"
+                    className="form__input"
+                    placeholder=" "
+                    name="lastname"
+                    autoComplete="off"
+                    value={ lastname }
+                    onChange={ onInputChange }
+                  />
+                  <label htmlFor="lastname" className="form__label">Apellido</label>
+                </div>
+
+                <span className="form__span">{ formSubmitted && lastnameValid }</span>
+              </div>
             </div>
 
             <div className='form__content'>

@@ -4,8 +4,7 @@ import { startResetPassword } from '../store';
 
 export const useResetPass = ( payload = {}, isFormValid, onResetForm ) => {
   
-  const dispatch = useDispatch();
-  const { errorMessage, successMessage, status } = useSelector( state => state.auth );
+  const { dispatch, errorMessage, successMessage, status } = useAuth();
 
   const [ formSubmitted, setFormSubmitted ] = useState( false );
   const [ isResetPass, setIsResetPass ] = useState(false);

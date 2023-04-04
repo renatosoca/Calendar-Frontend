@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-
-import { CgMenuGridR } from 'react-icons/cg';
+import { ToastNotification } from '../components';
 
 export const CalendarLayout = ({ children }) => {
 
@@ -10,6 +9,7 @@ export const CalendarLayout = ({ children }) => {
 
   return (
     <div className="calendar animate__animated animate__fadeIn">
+      <ToastNotification />
 
       { status === 'authenticated' && children }
       

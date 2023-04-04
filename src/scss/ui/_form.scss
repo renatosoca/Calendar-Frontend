@@ -11,6 +11,13 @@
   padding: 4rem 2rem;
   color: v.$color-gray-300;
 
+  &__container {
+    display: flex;
+    gap: 2rem;
+    @include m.sm {
+      flex-direction: column;
+    }
+  }
   /* CONTEINS: FIELDS AND ERROR MESSAGE */
   &__content {
     width: 100%;

@@ -1,27 +1,28 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { AiTwotoneDelete } from 'react-icons/ai';
-import { startCloseModalEvent, startDeletingEvent } from '../../store';
+import { startDeletingEvent } from '../../store';
+import { useUi } from '../../hooks';
 
 export const DeleteEventButton = () => {
-  const dispatch = useDispatch();
-  const { ModalEvent } = useSelector( state=> state.ui );
+  const { isLoading } = useSelector(state => state.calendar);
+  const { btnDelete, dispatch } = useUi();
 
-
-  const handleAddEvent = () => {
+  const handleDeleteEvent = () => {
     dispatch( startDeletingEvent() );
-    setTimeout(() => {
-      dispatch( startCloseModalEvent() );
-    }, 500);
   }
 
   return (
     <button 
-      onClick={handleAddEvent} 
-      className={ `${ ModalEvent ? 'btn btn__delete' : 'hidden' }` }
+      onClick={handleDeleteEvent} 
+      className={ `${ btnDelete ? 'btn btn__delete' : 'hidden' }` }
+      disabled={isLoading === 'loadingDelete'}
     >
       <AiTwotoneDelete className='btn__icon' />
-      Eliminar Evento
+      {isLoading === 'loadingDelete' ?
+        <span>Eliminando...</span> :
+        <span>Eliminar Evento</span>
+      }
     </button>
   )
 }

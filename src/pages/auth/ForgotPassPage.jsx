@@ -4,27 +4,19 @@ import { VscLoading } from 'react-icons/vsc';
 import { AuthLayout } from '../../layouts';
 import { useForgotPass, useForm } from '../../hooks';
 import { ErrorMessageAPI, SuccessMessageAPI } from '../../components';
-
-const initialForm = {
-  email: '',
-}
+import { initialFormForgotPass, validationsFormForgotPass } from '../../data';
 
 export const ForgotPassPage = () => {
-
-  const formValidations = {
-    email: [ (email) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/).test(email), 'Tiene que ser un email válido.' ]
-  };
-
-  const { 
+  const {
     formState, email, onInputChange, isFormValid, emailValid, onResetForm
-  } = useForm( initialForm, formValidations );
+  } = useForm( initialFormForgotPass, validationsFormForgotPass );
 
   const { 
     errorMessage, successMessage, isForgot, formSubmitted, isLoading, handleSubmit
   } = useForgotPass( formState, isFormValid, onResetForm );
 
   return (
-    <AuthLayout >
+    <AuthLayout>
       <div className="auth__info">
         <div className='auth__slogan' >
           <small className='auth__slogan-hashtag' >#Calendario Agenda</small>

@@ -19,7 +19,7 @@ export const Header = () => {
         </div>  {/* END LEFT */}
 
         <div className='header__right'>
-          <nav className={`header__nav ${ isNavbar?'header__nav-active':'' }`}>
+          <nav className={`header__nav ${ isNavbar?'header__nav-active':'header__nav-desactive' }`}>
             <div className={`header__content ${ isNavbar?'header__content-active':'' }`}>
               <div className='header__content-header'>
                 <div className='header__content-title'>

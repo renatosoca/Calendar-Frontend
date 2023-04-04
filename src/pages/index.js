@@ -1,9 +1,11 @@
+export * from './auth/ConfirmAccountPage';
+export * from './auth/ForgotPassPage';
 export * from './auth/LoginPage';
 export * from './auth/RegisterPage';
-export * from './auth/ForgotPassPage';
-export * from './auth/ConfirmAccountPage';
 export * from './auth/ResetPassPage';
-
 export * from './calendar/CalendarPage';
-
+export * from './calendar/PasswordUserProfile';
+export * from './calendar/ProfileUserPage';
+export * from './index';
+export * from './public/AboutPage';
 export * from './public/HomePage';

@@ -8,9 +8,13 @@
 /* UI */
 @use './scss/ui/form';
 @use './scss/ui/modal';
+@use './scss/ui/spinners';
+@use './scss/ui/toastNotification';
 
 /* PAGES */
 @use './scss/page/auth';
 @use './scss/page/confirm';
 @use './scss/page/calendar';
 @use './scss/page/home';
+@use './scss/page/profile';
+@use './scss/page/about';

@@ -4,7 +4,7 @@ export const uiSlice = createSlice({
   name: 'ui',
   initialState: {
     ModalCalendar: false,
-    ModalEvent: false,
+    btnDelete: false,
   },
   reducers: {
     onOpenModal: (state) => {
@@ -13,13 +13,13 @@ export const uiSlice = createSlice({
     onCloseModal: (state) => {
       state.ModalCalendar = false;
     },
-    onOpenModalEvent: (state) => {
-      state.ModalEvent = true;
+    onOpenBtnDelete: (state) => {
+      state.btnDelete = true;
     },
-    onCloseModalEvent: (state) => {
-      state.ModalEvent = false;
+    onCloseBtnDelete: (state) => {
+      state.btnDelete = false;
     }
   },
 });
 
-export const { onOpenModal, onCloseModal, onOpenModalEvent, onCloseModalEvent } = uiSlice.actions;
+export const { onOpenModal, onCloseModal, onOpenBtnDelete, onCloseBtnDelete } = uiSlice.actions;

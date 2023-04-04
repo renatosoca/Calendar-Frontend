@@ -5,22 +5,12 @@ import { VscLoading } from 'react-icons/vsc';
 import { AuthLayout } from '../../layouts';
 import { useForm, useLogin } from '../../hooks';
 import { ErrorMessageAPI } from '../../components';
-
-const initialForm = {
-  email: '',
-  password: '',
-}
+import { initialFormLogin, validationsFormLogin } from '../../data';
 
 export const LoginPage = () => {
-
-  const formValidations = {
-    email: [ (email) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/).test(email), 'Tiene que ser un email válido.' ],
-    password: [ (password) => password.length > 7, 'La contraseña debe contener un mínimo de 8 caracteres.' ],
-  };
-
   const { 
     formState, email, password, onInputChange, isFormValid, emailValid, passwordValid , onResetForm
-  } = useForm( initialForm, formValidations );
+  } = useForm( initialFormLogin, validationsFormLogin );
 
   const { 
     errorMessage, isLogin, formSubmitted, isLoading, handleSubmit 

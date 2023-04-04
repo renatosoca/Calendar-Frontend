@@ -1,4 +1,5 @@
 @use './variables' as v;
+
 @mixin tablet {
   @media screen and (max-width: 1024px) {
     @content;
@@ -9,7 +10,6 @@
     @content;
   }
 }
-
 @mixin sm {
   @media screen and (max-width: 576px) {
     @content;

@@ -1,47 +1,25 @@
 import ReactModal from "react-modal";
 import DatePicker, { registerLocale } from "react-datepicker";
-import { addHours } from "date-fns";
 import es from 'date-fns/locale/es';
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm, useCalendarModal } from "../../hooks";
-import { CgCalendar } from "react-icons/cg";
 import { useEffect, useState } from "react";
+import { initialFormCalendar, validationsFormCalendar } from "../../data";
+import { stylesFormModal } from "../../styles";
 
 registerLocale('es', es);
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
-  },
-};
 ReactModal.setAppElement("#root");
 
-const initialForm = {
-  title: "",
-  notes: "",
-  start: new Date(),
-  end: addHours(new Date(), 1),
-};
-
 export const CalendarModal = () => {
-
-  //Personalizar Errores y estilos del modal
-  const formValidations = {
-    title: [(title) => title.length > 0, "El titulo es requerido"]
-  }
-
-  const [ formValues, setFormValues ] = useState( initialForm );
+  const [ formValues, setFormValues ] = useState( initialFormCalendar );
 
   const {
     formState, title, notes, start, end, onInputChange, onInputChangeDate, isFormValid, titleValid, startValid, endValid
-  } = useForm( formValues, formValidations );
+  } = useForm( formValues, validationsFormCalendar );
 
   const {
-    ModalCalendar, activeEvent, isFormSubmit, handleSubmit, handleCloseModal 
+    ModalCalendar, activeEvent, isFormSubmit, handleSubmit, handleCloseModal, isLoading
   } = useCalendarModal( formState, isFormValid );
 
   useEffect(() => {
@@ -52,12 +30,12 @@ export const CalendarModal = () => {
     <ReactModal
       isOpen={ ModalCalendar }
       onRequestClose={ handleCloseModal }
-      style={ customStyles }
+      style={ stylesFormModal }
       overlayClassName="Modal__fondo"
       className='Modal__container'
       closeTimeoutMS={ 200 }
     >
-      <h1 className="Modal__title"> Nuevo evento </h1>
+      <h1 className="Modal__title">{ activeEvent?._id ? 'Editar evento' : 'Crear evento'}</h1>
 
       <form 
         onSubmit={ handleSubmit } 
@@ -132,8 +110,17 @@ export const CalendarModal = () => {
           </label>
         </div>
 
-        <button type="submit" className="form__submit">
-          <span> Guardar</span>
+        <button 
+          type="submit" 
+          className="form__submit"
+          disabled={ isLoading === 'loading' }
+        >
+          { isLoading === 'loading' ? 
+            <span>Guardando</span>  :
+            activeEvent?._id ?
+            <span>Editar</span> :
+            <span> Guardar</span>
+          }
         </button>
       </form>
     </ReactModal>
